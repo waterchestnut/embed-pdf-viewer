@@ -588,6 +588,8 @@ export const zoomRenderer: ComponentRenderFunction<ZoomRendererProps> = (
 
   if (!ui) return null;
 
+  const { t } = useTranslation();
+
   const commandZoomMenu = props.commandZoomMenu ? ui.getMenuOrAction(props.commandZoomMenu) : null;
   const commandZoomIn = props.commandZoomIn ? ui.getMenuOrAction(props.commandZoomIn) : null;
   const commandZoomOut = props.commandZoomOut ? ui.getMenuOrAction(props.commandZoomOut) : null;
@@ -645,7 +647,7 @@ export const zoomRenderer: ComponentRenderFunction<ZoomRendererProps> = (
       </form>
       <Tooltip
         position={context?.direction === 'horizontal' ? 'bottom' : 'right'}
-        content={'Zoom Options'}
+        content={t('Zoom Options')}
         trigger={props.zoomMenuActive ? 'none' : 'hover'}
       >
         <Button
@@ -672,7 +674,7 @@ export const zoomRenderer: ComponentRenderFunction<ZoomRendererProps> = (
       </Tooltip>
       <Tooltip
         position={context?.direction === 'horizontal' ? 'bottom' : 'right'}
-        content={'Zoom Out'}
+        content={t('Zoom Out')}
         trigger={'hover'}
       >
         <Button className="p-1" onClick={(e) => handleClick(e, commandZoomOut)}>
@@ -681,7 +683,7 @@ export const zoomRenderer: ComponentRenderFunction<ZoomRendererProps> = (
       </Tooltip>
       <Tooltip
         position={context?.direction === 'horizontal' ? 'bottom' : 'right'}
-        content={'Zoom In'}
+        content={t('Zoom In')}
         trigger={'hover'}
       >
         <Button className="p-1" onClick={(e) => handleClick(e, commandZoomIn)}>
@@ -806,6 +808,8 @@ export const pageControlsRenderer: ComponentRenderFunction<PageControlsProps> = 
   const isFirstPage = props.currentPage === 1;
   const isLastPage = props.currentPage === props.pageCount;
 
+  const { t } = useTranslation();
+
   const commandNextPage = props.nextPageCommandId
     ? ui?.getMenuOrAction(props.nextPageCommandId)
     : null;
@@ -838,7 +842,7 @@ export const pageControlsRenderer: ComponentRenderFunction<PageControlsProps> = 
 
   return (
     <div className="flex flex-row items-center justify-between gap-3 rounded-md">
-      <Tooltip position={'top'} content={'Previous Page'} trigger={isFirstPage ? 'none' : 'hover'}>
+      <Tooltip position={'top'} content={t('Previous Page')} trigger={isFirstPage ? 'none' : 'hover'}>
         <Button
           className={`p-1 ${isFirstPage ? 'cursor-not-allowed opacity-50 hover:ring-0' : ''}`}
           onClick={(e) => handleClick(e, commandPreviousPage)}
@@ -866,7 +870,7 @@ export const pageControlsRenderer: ComponentRenderFunction<PageControlsProps> = 
         />
         <span className="text-sm">{props.pageCount}</span>
       </form>
-      <Tooltip position={'top'} content={'Next Page'} trigger={isLastPage ? 'none' : 'hover'}>
+      <Tooltip position={'top'} content={t('Next Page')} trigger={isLastPage ? 'none' : 'hover'}>
         <Button
           className={`p-1 ${isLastPage ? 'cursor-not-allowed opacity-50 hover:ring-0' : ''}`}
           onClick={(e) => handleClick(e, commandNextPage)}
@@ -889,6 +893,8 @@ export const commandMenuRenderer: ComponentRenderFunction<CommandMenuProps> = ({
   const { provides: ui } = useUICapability();
   const [history, setHistory] = useState<string[]>([]);
   const lastPushRef = useRef<string | null>(null);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!open) setHistory([]);
@@ -979,10 +985,10 @@ export const commandMenuRenderer: ComponentRenderFunction<CommandMenuProps> = ({
                 <Icon icon={command.icon} className="h-6 w-6" {...command.iconProps} />
               )}
             </div>
-            <div className="text-sm">{command.label}</div>
+            <div className="text-sm">{t(command.label)}</div>
           </div>
           <div className="flex items-center">
-            {command.shortcutLabel && <div className="mr-2 text-sm">({command.shortcutLabel})</div>}
+            {command.shortcutLabel && <div className="mr-2 text-sm">({t(command.shortcutLabel)})</div>}
             {command.type === 'menu' && <Icon icon="chevronRight" className="h-6 w-6" />}
           </div>
         </button>
@@ -997,7 +1003,7 @@ export const commandMenuRenderer: ComponentRenderFunction<CommandMenuProps> = ({
           onClick={goBack}
           className="flex cursor-pointer flex-row items-center gap-2 px-4 py-1 pb-2 text-sm font-medium text-gray-500 hover:bg-gray-100"
         >
-          <Icon icon="chevronLeft" className="h-6 w-6 text-gray-500" /> {currentMenu?.label}
+          <Icon icon="chevronLeft" className="h-6 w-6 text-gray-500" /> {t(currentMenu?.label)}
         </div>
       )}
       {items?.map((item, index) => renderCommandItem(item, index))}
@@ -1075,6 +1081,8 @@ export const outlineRenderer: ComponentRenderFunction<OutlineRenderProps> = (pro
   const [bookmarks, setBookmarks] = useState<PdfBookmarkObject[]>([]);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!bookmark) return;
     const task = bookmark.getBookmarks();
@@ -1088,7 +1096,7 @@ export const outlineRenderer: ComponentRenderFunction<OutlineRenderProps> = (pro
     return () => {
       task.abort({
         code: PdfErrorCode.Cancelled,
-        message: 'Bookmark task cancelled',
+        message: t('Task.Bookmark.Cancelled'),
       });
     };
   }, [bookmark, props.document]);
@@ -1185,8 +1193,8 @@ export const outlineRenderer: ComponentRenderFunction<OutlineRenderProps> = (pro
     return (
       <div className="flex h-full items-center justify-center p-6">
         <div className="text-center text-gray-500">
-          <div className="text-sm">No outline available</div>
-          <div className="mt-1 text-xs">This document doesn't contain bookmarks</div>
+          <div className="text-sm">{t('Outline.None')}</div>
+          <div className="mt-1 text-xs">{t('Outline.Bookmark.None')}</div>
         </div>
       </div>
     );
@@ -1214,6 +1222,8 @@ export const attachmentsRenderer: ComponentRenderFunction<AttachmentsRenderProps
   const { provides: attachment } = useAttachmentCapability();
   const [attachments, setAttachments] = useState<PdfAttachmentObject[]>([]);
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!attachment) return;
     const task = attachment.getAttachments();
@@ -1224,7 +1234,7 @@ export const attachmentsRenderer: ComponentRenderFunction<AttachmentsRenderProps
     return () => {
       task.abort({
         code: PdfErrorCode.Cancelled,
-        message: 'Bookmark task cancelled',
+        message: t('Task.Bookmark.Cancelled'),
       });
     };
   }, [attachment, props.document]);
@@ -1239,7 +1249,7 @@ export const attachmentsRenderer: ComponentRenderFunction<AttachmentsRenderProps
     return () => {
       task.abort({
         code: PdfErrorCode.Cancelled,
-        message: 'Attachment task cancelled',
+        message: t('Task.Attachment.Cancelled'),
       });
     };
   };
@@ -1261,6 +1271,8 @@ export const selectButtonRenderer: ComponentRenderFunction<SelectButtonProps> = 
 ) => {
   const { provides: ui } = useUICapability();
   if (!ui) return null;
+
+  const { t } = useTranslation();
 
   const activeCommand = ui.getMenuOrAction(activeCommandId);
 
@@ -1287,7 +1299,7 @@ export const selectButtonRenderer: ComponentRenderFunction<SelectButtonProps> = 
         className={`col-start-1 row-start-1 !w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-2 text-[13px] text-gray-900 ${active ? 'text-blue-500 outline outline-2 -outline-offset-2 outline-blue-500' : 'outline outline-1 -outline-offset-1 outline-gray-300'} flex flex-row items-center justify-between gap-2 hover:ring-transparent`}
         onClick={handleClick}
       >
-        <span className="min-w-0 flex-1 truncate text-left">{activeCommand?.label}</span>
+        <span className="min-w-0 flex-1 truncate text-left">{t(activeCommand?.label)}</span>
         <Icon icon="chevronDown" className="h-4 w-4 text-gray-500" />
       </Button>
     </div>
@@ -1304,6 +1316,8 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
   const { provides: ui } = useUICapability();
   const { provides: scroll } = useScrollCapability();
   const { provides: printCapability } = usePrintCapability();
+
+  const { t } = useTranslation();
 
   const [selection, setSelection] = useState<PageSelection>('all');
   const [customPages, setCustomPages] = useState('');
@@ -1342,7 +1356,7 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
 
     try {
       setIsLoading(true);
-      setLoadingMessage('Preparing document...');
+      setLoadingMessage(t('Print.Loading'));
 
       const task = printCapability?.print(options);
 
@@ -1376,11 +1390,11 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
   const canSubmit = (selection !== 'custom' || customPages.trim().length > 0) && !isLoading;
 
   return (
-    <Dialog open={props.open} title="Print Settings" onClose={handleClose} maxWidth="28rem">
+    <Dialog open={props.open} title={t('Print.Settings')} onClose={handleClose} maxWidth="28rem">
       <div className="space-y-6">
         {/* Pages to print */}
         <div>
-          <label className="mb-3 block text-sm font-medium text-gray-700">Pages to print</label>
+          <label className="mb-3 block text-sm font-medium text-gray-700">{t('Print.PagesToPrint')}</label>
           <div className="space-y-2">
             <label className="flex items-center">
               <input
@@ -1392,7 +1406,7 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
                 disabled={isLoading}
                 className="mr-2"
               />
-              <span className="text-sm">All pages</span>
+              <span className="text-sm">{t('Print.AllPages')}</span>
             </label>
 
             <label className="flex items-center">
@@ -1405,7 +1419,7 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
                 disabled={isLoading}
                 className="mr-2"
               />
-              <span className="text-sm">Current page ({currentPage})</span>
+              <span className="text-sm">{t('Print.CurrentPage', {currentPage})}</span>
             </label>
 
             <label className="flex items-start">
@@ -1419,10 +1433,10 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
                 className="mr-2 mt-0.5"
               />
               <div className="flex-1">
-                <span className="mb-1 block text-sm">Specify pages</span>
+                <span className="mb-1 block text-sm">{t('Print.SpecifyPages')}</span>
                 <input
                   type="text"
-                  placeholder="e.g., 1-3, 5, 8-10"
+                  placeholder={t('Print.SpecifyPages.EG')}
                   value={customPages}
                   onInput={(e) => setCustomPages((e.target as HTMLInputElement).value)}
                   disabled={selection !== 'custom' || isLoading}
@@ -1434,7 +1448,7 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
                 />
                 {selection === 'custom' && customPages.trim() && totalPages > 0 && (
                   <p className="mt-1 text-xs text-gray-500">
-                    Total pages in document: {totalPages}
+                    {t('Print.SpecifyPages.TotalPages', {totalPages})}
                   </p>
                 )}
               </div>
@@ -1452,7 +1466,7 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
               disabled={isLoading}
               className="mr-2"
             />
-            <span className="text-sm font-medium text-gray-700">Include annotations</span>
+            <span className="text-sm font-medium text-gray-700">{t('Print.Annotations')}</span>
           </label>
         </div>
 
@@ -1492,7 +1506,7 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
             disabled={isLoading}
             className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Cancel
+            {t('Cancel')}
           </Button>
           <Button
             onClick={handlePrint}
@@ -1521,7 +1535,7 @@ export const printModalRenderer: ComponentRenderFunction<PrintModalProps> = (pro
                 ></path>
               </svg>
             )}
-            <span>{isLoading ? 'Printing...' : 'Print'}</span>
+            <span>{isLoading ? t('Printing...') : t('Print')}</span>
           </Button>
         </div>
       </div>
