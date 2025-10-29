@@ -7,6 +7,7 @@ import {
   SpreadMode,
   Rotation,
 } from './components/app';
+import './i18n/index';
 
 type ContainerConfig = PDFViewerConfig & {
   type: 'container';

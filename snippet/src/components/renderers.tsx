@@ -54,6 +54,8 @@ import { useBookmarkCapability } from '@embedpdf/plugin-bookmark/preact';
 import { SidebarAnnotationEntry } from '@embedpdf/plugin-annotation';
 import { useAttachmentCapability } from '@embedpdf/plugin-attachment/preact';
 
+import { useTranslation } from "react-i18next";
+
 export const iconButtonRenderer: ComponentRenderFunction<IconButtonProps> = (
   { commandId, onClick, active, iconProps, disabled = false, ...props },
   children,
@@ -61,6 +63,8 @@ export const iconButtonRenderer: ComponentRenderFunction<IconButtonProps> = (
 ) => {
   const { provides: ui } = useUICapability();
   const command = commandId ? ui?.getMenuOrAction(commandId) : null;
+
+  const { t } = useTranslation();
 
   const handleClick = useCallback(
     (e: MouseEvent) => {
@@ -89,7 +93,7 @@ export const iconButtonRenderer: ComponentRenderFunction<IconButtonProps> = (
   return (
     <Tooltip
       position={context?.direction === 'horizontal' ? 'bottom' : 'right'}
-      content={props.label || command?.label || ''}
+      content={t(props.label || command?.label || '')}
       trigger={active ? 'none' : 'hover'}
       delay={500}
     >

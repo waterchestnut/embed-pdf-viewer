@@ -14,6 +14,7 @@ import url from '@rollup/plugin-url';
 import terser from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy';
 import alias from '@rollup/plugin-alias';
+import replace from '@rollup/plugin-replace';
 
 // Check if we are in 'development' mode
 const isDev = process.env.ROLLUP_WATCH;
@@ -104,6 +105,10 @@ export default [
           watch: 'dist',
           verbose: false,
         }),
+      replace({
+        preventAssignment: true,
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }),
     ].filter(Boolean),
   },
 ];
