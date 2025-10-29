@@ -1,3 +1,15 @@
 export default {
-  'Copy': '复制',
-};
+    'View': '阅读',
+    'Annotate': '批注',
+    'Shapes': '形状',
+    'Redact': '涂黑',
+    'Comment': '评论',
+    'Copy': '复制',
+    'Search': '搜索',
+    'Case sensitive': '大小写敏感',
+    'Whole word': '全词匹配',
+    'Search.Page': '第{{page}}页',
+    'Search.Results': '{{total}} 个结果',
+    'Pan': '拖拽',
+    'Pointer': '选择',
+}

@@ -119,6 +119,8 @@ export const tabButtonRenderer: ComponentRenderFunction<TabButtonProps> = (
   const { provides: ui } = useUICapability();
   const command = commandId ? ui?.getMenuOrAction(commandId) : null;
 
+  const { t } = useTranslation();
+
   const handleClick = useCallback(
     (e: MouseEvent) => {
       e.preventDefault();
@@ -144,7 +146,7 @@ export const tabButtonRenderer: ComponentRenderFunction<TabButtonProps> = (
       className={`rounded-none px-2 py-1 text-sm hover:bg-transparent ${active ? 'border-b-2 border-b-blue-500 text-blue-500' : 'border-b-2 border-b-transparent hover:border-b-gray-500'} hover:ring-transparent`}
       onClick={handleClick}
     >
-      {props.label}
+      {t(props.label)}
     </Button>
   );
 };
@@ -237,6 +239,8 @@ export const leftPanelMainRenderer: ComponentRenderFunction<LeftPanelMainProps> 
   const tabChildren =
     tabsCommand && tabsCommand.type === 'menu' ? ui?.getItemsByIds(tabsCommand.children) : null;
 
+  const { t } = useTranslation();
+
   return (
     <Fragment>
       {tabsCommand && tabChildren && (
@@ -249,7 +253,7 @@ export const leftPanelMainRenderer: ComponentRenderFunction<LeftPanelMainProps> 
               const isLast = idx === array.length - 1;
 
               return (
-                <Tooltip key={child.id} content={child.label} trigger="hover" position="bottom">
+                <Tooltip key={child.id} content={t(child.label)} trigger="hover" position="bottom">
                   <button
                     role="tab"
                     aria-selected={isActive}
@@ -453,6 +457,8 @@ export const searchRenderer: ComponentRenderFunction<SearchRendererProps> = (pro
 
   const grouped = groupByPage(props.results);
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex h-full flex-col bg-white">
       <div className="p-4">
@@ -474,7 +480,7 @@ export const searchRenderer: ComponentRenderFunction<SearchRendererProps> = (pro
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search"
+            placeholder={t('Search')}
             autoFocus
             value={inputValue}
             onInput={handleInputChange}
@@ -502,12 +508,12 @@ export const searchRenderer: ComponentRenderFunction<SearchRendererProps> = (pro
         </div>
         <div className="mt-3 flex flex-row gap-4">
           <Checkbox
-            label="Case sensitive"
+            label={t('Case sensitive')}
             checked={props.flags.includes(MatchFlag.MatchCase)}
             onChange={(checked) => handleFlagChange(MatchFlag.MatchCase, checked)}
           />
           <Checkbox
-            label="Whole word"
+            label={t('Whole word')}
             checked={props.flags.includes(MatchFlag.MatchWholeWord)}
             onChange={(checked) => handleFlagChange(MatchFlag.MatchWholeWord, checked)}
           />
@@ -515,7 +521,7 @@ export const searchRenderer: ComponentRenderFunction<SearchRendererProps> = (pro
         <hr className="mb-2 mt-5 border-gray-200" />
         {props.active && (
           <div className="flex h-[32px] flex-row items-center justify-between">
-            <div className="text-xs text-gray-500">{props.total} results found</div>
+            <div className="text-xs text-gray-500">{t('Search.Results',{total: props.total})}</div>
             {props.total > 1 && (
               <div className="flex flex-row">
                 <Button
@@ -541,7 +547,7 @@ export const searchRenderer: ComponentRenderFunction<SearchRendererProps> = (pro
         {Object.entries(grouped).map(([page, hits]) => (
           <div key={page} className="mt-2 first:mt-0">
             <div className="bg-white/80 py-2 text-xs text-gray-500 backdrop-blur">
-              Page {Number(page) + 1}
+              {t('Search.Page',{page: Number(page) + 1})}
             </div>
 
             <div className="flex flex-col gap-2">
