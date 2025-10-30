@@ -95,6 +95,7 @@ export default {
     'Zoom in': '放大',
     'Zoom Out': '缩小',
     'Zoom out': '缩小',
+    'Zoom.Drag': '拖动以选择要缩放的区域',
 
     'Sidebar': '大纲与缩略图',
     'Thumbnails': '缩略图',
@@ -140,4 +141,7 @@ export default {
     'defaults': '默认设置',
     'Line start': '线条起点',
     'Line end': '线条结尾',
+
+    'Capture.Title': '捕获PDF区域',
+    'Capture.Drag': '拖动以选择要截取的区域',
 }

@@ -95,6 +95,7 @@ export default {
     'Zoom in': 'Zoom in',
     'Zoom Out': 'Zoom Out',
     'Zoom out': 'Zoom out',
+    'Zoom.Drag': 'Drag to select area to zoom',
 
     'Sidebar': 'Sidebar',
     'Thumbnails': 'Thumbnails',
@@ -140,4 +141,7 @@ export default {
     'defaults': 'defaults',
     'Line start': 'Line start',
     'Line end': 'Line end',
+
+    'Capture.Title': 'Capture PDF Area',
+    'Capture.Drag': 'Drag to select area to capture',
 }
