@@ -8,6 +8,8 @@ import { SidebarPropsBase } from './annotation-sidebar/common';
 import { SIDEbars } from './annotation-sidebar/registry';
 import { EmptyState } from './annotation-sidebar/empty-state';
 
+import { useTranslation } from "react-i18next";
+
 export function leftPanelAnnotationStyleRenderer({
   selectedAnnotation,
   activeToolId,
@@ -19,6 +21,8 @@ export function leftPanelAnnotationStyleRenderer({
 }) {
   const { provides: annotation } = useAnnotationCapability();
   if (!annotation) return null;
+
+  const { t } = useTranslation();
 
   let tool: AnnotationTool | null = null;
   let subtype: PdfAnnotationSubtype | null = null;
@@ -55,7 +59,7 @@ export function leftPanelAnnotationStyleRenderer({
     <div class="h-full overflow-y-auto p-4">
       {computedTitle && (
         <h2 class="text-md mb-4 font-medium">
-          {computedTitle} {selectedAnnotation ? 'styles' : 'defaults'}
+          {t(computedTitle)} {selectedAnnotation ? t('styles') : t('defaults')}
         </h2>
       )}
       <Sidebar {...(commonProps as any)} />

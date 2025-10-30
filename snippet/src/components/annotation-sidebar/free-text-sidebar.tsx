@@ -19,11 +19,15 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { ColorSwatch, Slider, FontFamilySelect, FontSizeInputSelect } from './ui';
 import { Icon } from '../ui/icon';
 
+import { useTranslation } from "react-i18next";
+
 export const FreeTextSidebar = ({
   selected,
   activeTool,
   colorPresets,
 }: SidebarPropsBase<PdfFreeTextAnnoObject>) => {
+  const { t } = useTranslation();
+
   /* ────────────────────────  Model / capability  ─────────────────────── */
   const { provides: annotation } = useAnnotationCapability();
   if (!annotation) return null;
@@ -168,7 +172,7 @@ export const FreeTextSidebar = ({
     <Fragment>
       {/* font family + style */}
       <section class="mb-6">
-        <label class="mb-2 block text-sm font-medium text-gray-900">Font</label>
+        <label class="mb-2 block text-sm font-medium text-gray-900">{t('Font')}</label>
 
         {/* Family + size */}
         <div class="mb-3 flex gap-2">
@@ -212,11 +216,11 @@ export const FreeTextSidebar = ({
 
       {/* text alignment */}
       <section class="mb-6">
-        <label class="mb-2 block text-sm font-medium text-gray-900">Text alignment</label>
+        <label class="mb-2 block text-sm font-medium text-gray-900">{t('Text alignment')}</label>
         <div class="flex gap-2">
           <button
             type="button"
-            title="Align left"
+            title={t('Align left')}
             onClick={() => changeTextAlign(PdfTextAlignment.Left)}
             class={`h-9 w-9 rounded border border-gray-300 px-2 py-1 text-sm ${
               textAlign === PdfTextAlignment.Left
@@ -228,7 +232,7 @@ export const FreeTextSidebar = ({
           </button>
           <button
             type="button"
-            title="Align center"
+            title={t('Align center')}
             onClick={() => changeTextAlign(PdfTextAlignment.Center)}
             class={`h-9 w-9 rounded border border-gray-300 px-2 py-1 text-sm ${
               textAlign === PdfTextAlignment.Center
@@ -240,7 +244,7 @@ export const FreeTextSidebar = ({
           </button>
           <button
             type="button"
-            title="Align right"
+            title={t('Align right')}
             onClick={() => changeTextAlign(PdfTextAlignment.Right)}
             class={`h-9 w-9 rounded border border-gray-300 px-2 py-1 text-sm ${
               textAlign === PdfTextAlignment.Right
@@ -255,11 +259,11 @@ export const FreeTextSidebar = ({
 
       {/* vertical alignment */}
       <section class="mb-6">
-        <label class="mb-2 block text-sm font-medium text-gray-900">Vertical alignment</label>
+        <label class="mb-2 block text-sm font-medium text-gray-900">{t('Vertical alignment')}</label>
         <div class="flex gap-2">
           <button
             type="button"
-            title="Align top"
+            title={t('Align top')}
             onClick={() => changeVerticalAlign(PdfVerticalAlignment.Top)}
             class={`h-9 w-9 rounded border border-gray-300 px-2 py-1 text-sm ${
               verticalAlign === PdfVerticalAlignment.Top
@@ -271,7 +275,7 @@ export const FreeTextSidebar = ({
           </button>
           <button
             type="button"
-            title="Align middle"
+            title={t('Align middle')}
             onClick={() => changeVerticalAlign(PdfVerticalAlignment.Middle)}
             class={`h-9 w-9 rounded border border-gray-300 px-2 py-1 text-sm ${
               verticalAlign === PdfVerticalAlignment.Middle
@@ -283,7 +287,7 @@ export const FreeTextSidebar = ({
           </button>
           <button
             type="button"
-            title="Align bottom"
+            title={t('Align bottom')}
             onClick={() => changeVerticalAlign(PdfVerticalAlignment.Bottom)}
             class={`h-9 w-9 rounded border border-gray-300 px-2 py-1 text-sm ${
               verticalAlign === PdfVerticalAlignment.Bottom
@@ -298,7 +302,7 @@ export const FreeTextSidebar = ({
 
       {/* font colour */}
       <section class="mb-6">
-        <label class="mb-3 block text-sm font-medium text-gray-900">Font colour</label>
+        <label class="mb-3 block text-sm font-medium text-gray-900">{t('Font colour')}</label>
         <div class="grid grid-cols-6 gap-x-1 gap-y-4">
           {colorPresets.map((c) => (
             <ColorSwatch key={c} color={c} active={c === fontColor} onSelect={changeFontColor} />
@@ -308,7 +312,7 @@ export const FreeTextSidebar = ({
 
       {/* background colour */}
       <section class="mb-6">
-        <label class="mb-3 block text-sm font-medium text-gray-900">Background colour</label>
+        <label class="mb-3 block text-sm font-medium text-gray-900">{t('Background colour')}</label>
         <div class="grid grid-cols-6 gap-x-1 gap-y-4">
           {colorPresets.map((c) => (
             <ColorSwatch
@@ -329,7 +333,7 @@ export const FreeTextSidebar = ({
 
       {/* opacity */}
       <section class="mb-6">
-        <label class="mb-1 block text-sm font-medium text-gray-900">Opacity</label>
+        <label class="mb-1 block text-sm font-medium text-gray-900">{t('Opacity')}</label>
         <Slider value={opacity} min={0.1} max={1} step={0.05} onChange={setOpacity} />
         <span class="text-xs text-gray-500">{Math.round(opacity * 100)}%</span>
       </section>

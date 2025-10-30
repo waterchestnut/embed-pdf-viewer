@@ -6,6 +6,8 @@ import { SidebarPropsBase } from './common';
 import { Slider, ColorSwatch } from './ui';
 import { useDebounce } from '../../hooks/use-debounce';
 
+import { useTranslation } from "react-i18next";
+
 export const InkSidebar = ({
   selected,
   activeTool,
@@ -13,6 +15,8 @@ export const InkSidebar = ({
 }: SidebarPropsBase<PdfInkAnnoObject>) => {
   const { provides: annotation } = useAnnotationCapability();
   if (!annotation) return null;
+
+  const { t } = useTranslation();
 
   const anno = selected?.object;
   const defaults = activeTool?.defaults;
@@ -55,7 +59,7 @@ export const InkSidebar = ({
     <Fragment>
       {/* color */}
       <section class="mb-6">
-        <label class="mb-3 block text-sm font-medium text-gray-900">Color</label>
+        <label class="mb-3 block text-sm font-medium text-gray-900">{t('Color')}</label>
         <div class="grid grid-cols-6 gap-x-1 gap-y-4">
           {colorPresets.map((c) => (
             <ColorSwatch key={c} color={c} active={c === color} onSelect={changeColor} />
@@ -65,14 +69,14 @@ export const InkSidebar = ({
 
       {/* opacity */}
       <section class="mb-6">
-        <label class="mb-1 block text-sm font-medium text-gray-900">Opacity</label>
+        <label class="mb-1 block text-sm font-medium text-gray-900">{t('Opacity')}</label>
         <Slider value={opacity} min={0.1} max={1} step={0.05} onChange={setOpacity} />
         <span class="text-xs text-gray-500">{Math.round(opacity * 100)}%</span>
       </section>
 
       {/* stroke-width */}
       <section class="mb-6">
-        <label class="mb-1 block text-sm font-medium text-gray-900">Stroke width</label>
+        <label class="mb-1 block text-sm font-medium text-gray-900">{t('Stroke width')}</label>
         <Slider value={stroke} min={1} max={30} step={1} onChange={setStroke} />
         <span class="text-xs text-gray-500">{stroke}px</span>
       </section>

@@ -12,6 +12,8 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { SidebarPropsBase } from './common';
 import { ColorSwatch, LineEndingSelect, Slider, StrokeStyleSelect } from './ui';
 
+import { useTranslation } from "react-i18next";
+
 export const LineSidebar = ({
   selected,
   activeTool,
@@ -19,6 +21,8 @@ export const LineSidebar = ({
 }: SidebarPropsBase<PdfLineAnnoObject | PdfPolylineAnnoObject>) => {
   const { provides: annotation } = useAnnotationCapability();
   if (!annotation) return null;
+
+  const { t } = useTranslation();
 
   const anno = selected?.object;
   const defaults = activeTool?.defaults;
@@ -102,7 +106,7 @@ export const LineSidebar = ({
     <Fragment>
       {/* stroke color */}
       <section class="mb-6">
-        <label class="mb-3 block text-sm font-medium text-gray-900">Stroke color</label>
+        <label class="mb-3 block text-sm font-medium text-gray-900">{t('Stroke color')}</label>
         <div class="grid grid-cols-6 gap-x-1 gap-y-4">
           {colorPresets.map((c) => (
             <ColorSwatch key={c} color={c} active={c === stroke} onSelect={changeStroke} />
@@ -117,20 +121,20 @@ export const LineSidebar = ({
 
       {/* opacity */}
       <section class="mb-6">
-        <label class="mb-1 block text-sm font-medium text-gray-900">Opacity</label>
+        <label class="mb-1 block text-sm font-medium text-gray-900">{t('Opacity')}</label>
         <Slider value={opacity} min={0.1} max={1} step={0.05} onChange={setOpac} />
         <span class="text-xs text-gray-500">{Math.round(opacity * 100)}%</span>
       </section>
 
       {/* stroke style */}
       <section class="mb-6">
-        <label class="mb-3 block text-sm font-medium text-gray-900">Stroke style</label>
+        <label class="mb-3 block text-sm font-medium text-gray-900">{t('Stroke style')}</label>
         <StrokeStyleSelect value={style} onChange={changeStyle} />
       </section>
 
       {/* stroke width */}
       <section class="mb-6">
-        <label class="mb-1 block text-sm font-medium text-gray-900">Stroke width</label>
+        <label class="mb-1 block text-sm font-medium text-gray-900">{t('Stroke width')}</label>
         <Slider value={strokeW} min={1} max={10} step={1} onChange={setWidth} />
         <span class="text-xs text-gray-500">{strokeW}</span>
       </section>
@@ -140,13 +144,13 @@ export const LineSidebar = ({
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-200">
-              Line start
+              {t('Line start')}
             </label>
             <LineEndingSelect value={startEnding} onChange={changeStartEnding} position="start" />
           </div>
           <div>
             <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-200">
-              Line end
+              {t('Line end')}
             </label>
             <LineEndingSelect value={endEnding} onChange={changeEndEnding} position="end" />
           </div>
@@ -155,7 +159,7 @@ export const LineSidebar = ({
 
       {/* fill color */}
       <section class="mb-6">
-        <label class="mb-3 block text-sm font-medium text-gray-900">Fill color</label>
+        <label class="mb-3 block text-sm font-medium text-gray-900">{t('Fill color')}</label>
         <div class="grid grid-cols-6 gap-x-1 gap-y-4">
           {colorPresets.map((c) => (
             <ColorSwatch key={c} color={c} active={c === fill} onSelect={changeFill} />
