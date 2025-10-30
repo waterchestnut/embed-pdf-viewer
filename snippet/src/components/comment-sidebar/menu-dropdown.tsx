@@ -2,6 +2,8 @@ import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 import { useClickOutside } from '../../hooks/use-click-outside';
 
+import { useTranslation } from "react-i18next";
+
 interface MenuDropdownProps {
   onEdit: () => void;
   onDelete: () => void;
@@ -9,6 +11,8 @@ interface MenuDropdownProps {
 }
 
 export const MenuDropdown = ({ onEdit, onDelete, onClose }: MenuDropdownProps) => {
+  const { t } = useTranslation();
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   useClickOutside(dropdownRef, onClose);
 
@@ -36,13 +40,13 @@ export const MenuDropdown = ({ onEdit, onDelete, onClose }: MenuDropdownProps) =
           onClick={handleEdit}
           className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
         >
-          Edit
+          {t('Edit')}
         </button>
         <button
           onClick={handleDelete}
           className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
         >
-          Delete
+          {t('Delete')}
         </button>
       </div>
     </div>

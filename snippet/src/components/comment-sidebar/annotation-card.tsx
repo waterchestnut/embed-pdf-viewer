@@ -10,6 +10,8 @@ import { formatDate } from '../utils';
 import { AnnotationIcon } from './annotation-icon';
 import { EditCommentForm } from './edit-comment-form';
 
+import { useTranslation } from "react-i18next";
+
 interface AnnotationCardProps {
   entry: SidebarAnnotationEntry;
   isSelected: boolean;
@@ -31,12 +33,14 @@ export const AnnotationCard = ({
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isEditing, setEditing] = useState(false);
 
+  const { t } = useTranslation();
+
   const config = getAnnotationConfig(annotation);
   const hasContent = !!annotation.object.contents;
   const hasReplies = replies.length > 0;
   const showCommentInput = !hasContent && !hasReplies;
   const inputRef = useRef<HTMLInputElement>(null);
-  const author = annotation.object.author || 'Guest';
+  const author = annotation.object.author || t('Guest');
 
   useEffect(() => {
     if (isSelected) {
@@ -70,7 +74,7 @@ export const AnnotationCard = ({
               <div className="leading-none">
                 <h4 className="text-sm font-medium text-gray-900">{author}</h4>
                 <span className="text-xs text-gray-400">
-                  {formatDate(annotation.object.modified || annotation.object.created)}
+                  {formatDate(annotation.object.modified || annotation.object.created, t('Locales'), t('NoDate'))}
                 </span>
               </div>
               <div className="relative">
@@ -136,7 +140,7 @@ export const AnnotationCard = ({
           <AnnotationInput
             inputRef={inputRef}
             isFocused={isSelected}
-            placeholder={showCommentInput ? 'Add comment...' : 'Add reply...'}
+            placeholder={showCommentInput ? t('Add comment...') : t('Add reply...')}
             onSubmit={(text) => {
               if (showCommentInput) {
                 onUpdate(annotation.object.id, text);

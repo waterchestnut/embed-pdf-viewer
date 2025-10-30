@@ -6,6 +6,8 @@ import { MenuDropdown } from './menu-dropdown';
 import { EditCommentForm } from './edit-comment-form';
 import { formatDate } from '../utils';
 
+import { useTranslation } from "react-i18next";
+
 interface CommentProps {
   annotation: PdfAnnotationObject;
   onSave: (text: string) => void;
@@ -14,9 +16,11 @@ interface CommentProps {
 }
 
 export const Comment = ({ annotation, onSave, onDelete, isReply = false }: CommentProps) => {
+  const { t } = useTranslation();
+
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isEditing, setEditing] = useState(false);
-  const author = annotation.author || 'Guest';
+  const author = annotation.author || t('Guest');
 
   const handleSave = (newText: string) => {
     onSave(newText);
@@ -51,7 +55,7 @@ export const Comment = ({ annotation, onSave, onDelete, isReply = false }: Comme
             <div className="leading-none">
               <h5 className="text-sm font-medium text-gray-900">{author}</h5>
               <span className="text-xs text-gray-400">
-                {formatDate(annotation.modified || annotation.created)}
+                {formatDate(annotation.modified || annotation.created, t('Locales'), t('NoDate'))}
               </span>
             </div>
             <div className="relative">

@@ -1,6 +1,8 @@
 import { h } from 'preact';
 import { useState, useEffect, useRef } from 'preact/hooks';
 
+import { useTranslation } from "react-i18next";
+
 interface EditCommentFormProps {
   initialText: string;
   onSave: (newText: string) => void;
@@ -16,6 +18,8 @@ export const EditCommentForm = ({
 }: EditCommentFormProps) => {
   const [text, setText] = useState(initialText);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const { t } = useTranslation();
 
   // Focus the textarea and move the cursor to the end when the component mounts
   useEffect(() => {
@@ -49,13 +53,13 @@ export const EditCommentForm = ({
           onClick={handleSaveClick}
           className="rounded-md bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
         >
-          Save
+          {t('Save')}
         </button>
         <button
           onClick={handleCancelClick}
           className="rounded-md bg-gray-300 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400"
         >
-          Cancel
+          {t('Cancel')}
         </button>
       </div>
     </div>

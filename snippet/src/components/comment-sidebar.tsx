@@ -7,12 +7,16 @@ import { uuidV4, PdfAnnotationSubtype, PdfAnnotationIcon } from '@embedpdf/model
 import { AnnotationCard } from './comment-sidebar/annotation-card';
 import { EmptyState } from './comment-sidebar/empty-state';
 
+import { useTranslation } from "react-i18next";
+
 export interface CommentSidebarProps {
   sidebarAnnotations: Record<number, SidebarAnnotationEntry[]>;
   selectedAnnotation: TrackedAnnotation | null;
 }
 
 export const commentRender = ({ sidebarAnnotations, selectedAnnotation }: CommentSidebarProps) => {
+  const { t } = useTranslation();
+
   const { provides: annotationApi } = useAnnotationCapability();
   const { provides: scrollApi } = useScrollCapability();
   const annotationRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -105,10 +109,9 @@ export const commentRender = ({ sidebarAnnotations, selectedAnnotation }: Commen
             {/* Page Header */}
             <div className="sticky top-0 z-10 bg-white px-1">
               <div className="border-b border-gray-200 py-2">
-                <h3 className="text-md font-semibold text-gray-800">Page {pageNumber + 1}</h3>
+                <h3 className="text-md font-semibold text-gray-800">{t('Comment.Page', {pageNumber: pageNumber + 1})}</h3>
                 <p className="text-sm text-gray-500">
-                  {sidebarAnnotations[pageNumber].length} comment
-                  {sidebarAnnotations[pageNumber].length !== 1 ? 's' : ''}
+                  {t('Comment.Total', {total: sidebarAnnotations[pageNumber].length, unit: sidebarAnnotations[pageNumber].length !== 1 ? 's' : ''})}
                 </p>
               </div>
             </div>

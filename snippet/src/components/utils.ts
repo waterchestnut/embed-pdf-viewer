@@ -72,17 +72,17 @@ export function menuPositionForSelection(
   return null;
 }
 
-export const formatDate = (dateValue?: string | Date) => {
-  if (!dateValue) return '(no date)';
+export const formatDate = (dateValue?: string | Date, locales?: string, emptyTip?: string) => {
+  if (!dateValue) return emptyTip || '(no date)';
   try {
     const date = dateValue instanceof Date ? dateValue : new Date(dateValue);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(locales || 'en-US', {
       month: 'short',
       day: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
     });
   } catch {
-    return typeof dateValue === 'string' ? dateValue : '(no date)';
+    return typeof dateValue === 'string' ? dateValue : emptyTip || '(no date)';
   }
 };
