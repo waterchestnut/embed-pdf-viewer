@@ -959,7 +959,7 @@ export const commandMenuRenderer: ComponentRenderFunction<CommandMenuProps> = ({
 
       return (
         <Fragment key={command.id}>
-          <div className="px-4 py-3 text-xs font-medium uppercase text-gray-600">{group.label}</div>
+          <div className="px-4 py-3 text-xs font-medium uppercase text-gray-600">{t(group.label + '')}</div>
           {groupChildren.map((child, childIndex) => (
             <Fragment key={child.id}>{renderCommandItem(child, childIndex)}</Fragment>
           ))}

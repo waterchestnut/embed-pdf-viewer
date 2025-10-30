@@ -182,6 +182,8 @@ import { AnnotationMenu } from './annotation-menu';
 import { commentRender } from './comment-sidebar';
 import { RedactionMenu } from './redaction-menu';
 
+import { useTranslation } from "react-i18next";
+
 export { ScrollStrategy, ZoomMode, SpreadMode, Rotation };
 
 // **Enhanced Configuration Interface**
@@ -2799,6 +2801,8 @@ export function PDFViewer({ config }: PDFViewerProps) {
     logger: config.log ? logger : undefined,
   });
 
+  const { t } = useTranslation();
+
   // **Merge user configurations with defaults**
   const pluginConfigs = mergePluginConfigs(config.plugins);
 
@@ -2913,7 +2917,7 @@ export function PDFViewer({ config }: PDFViewerProps) {
                           >
                             {!pluginsReady && (
                               <div className="flex h-full w-full items-center justify-center">
-                                <LoadingIndicator size="lg" text="Loading PDF document..." />
+                                <LoadingIndicator size="lg" text={t('PdfLoading')} />
                               </div>
                             )}
                             {pluginsReady && (
