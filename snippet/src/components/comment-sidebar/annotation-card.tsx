@@ -40,7 +40,7 @@ export const AnnotationCard = ({
   const hasReplies = replies.length > 0;
   const showCommentInput = !hasContent && !hasReplies;
   const inputRef = useRef<HTMLInputElement>(null);
-  const author = annotation.object.author || t('Guest');
+  const author = t(annotation.object.author || 'Guest');
 
   useEffect(() => {
     if (isSelected) {

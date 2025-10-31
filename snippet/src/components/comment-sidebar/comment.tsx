@@ -20,7 +20,7 @@ export const Comment = ({ annotation, onSave, onDelete, isReply = false }: Comme
 
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isEditing, setEditing] = useState(false);
-  const author = annotation.author || t('Guest');
+  const author = t(annotation.author || 'Guest');
 
   const handleSave = (newText: string) => {
     onSave(newText);
