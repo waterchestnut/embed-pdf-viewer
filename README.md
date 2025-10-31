@@ -18,6 +18,12 @@
 
 ---
 
+## 支持多语言
+
+snippet模式在原库的基础上添加i18next支持，已添加英语和简体中文的语言包。
+
+---
+
 ## 📚 Documentation
 
 Full docs, installation guides, API reference, and examples:  

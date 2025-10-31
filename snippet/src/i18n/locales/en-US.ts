@@ -47,6 +47,7 @@ export default {
     'Ink': 'Ink',
     'Free text': 'Free text',
     'Strikeout': 'Strikeout',
+    'Text': 'Text',
 
     'Search': 'Search',
     'Case sensitive': 'Case sensitive',
@@ -141,6 +142,8 @@ export default {
     'defaults': 'defaults',
     'Line start': 'Line start',
     'Line end': 'Line end',
+    'Bold': 'Bold',
+    'Italic': 'Italic',
 
     'Capture.Title': 'Capture PDF Area',
     'Capture.Drag': 'Drag to select area to capture',

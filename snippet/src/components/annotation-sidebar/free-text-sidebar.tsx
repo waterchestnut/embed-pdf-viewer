@@ -186,7 +186,7 @@ export const FreeTextSidebar = ({
         <div class="flex gap-2">
           <button
             type="button"
-            title="Bold"
+            title={t('Bold')}
             disabled={
               !standardFontIsBold(makeStandardFont(fontFamily, { bold: true, italic: false }))
             }
@@ -200,7 +200,7 @@ export const FreeTextSidebar = ({
 
           <button
             type="button"
-            title="Italic"
+            title={t('Italic')}
             disabled={
               !standardFontIsItalic(makeStandardFont(fontFamily, { bold: false, italic: true }))
             }

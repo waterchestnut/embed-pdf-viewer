@@ -47,6 +47,7 @@ export default {
     'Ink': '自由绘制',
     'Free text': '任意文本',
     'Strikeout': '删除线',
+    'Text': '任意文本',
 
     'Search': '搜索',
     'Case sensitive': '大小写敏感',
@@ -141,6 +142,8 @@ export default {
     'defaults': '默认设置',
     'Line start': '线条起点',
     'Line end': '线条结尾',
+    'Bold': '加粗',
+    'Italic': '斜体',
 
     'Capture.Title': '捕获PDF区域',
     'Capture.Drag': '拖动以选择要截取的区域',
