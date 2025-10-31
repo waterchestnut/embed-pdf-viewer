@@ -131,6 +131,7 @@ import {
   isStrikeoutTool,
   isHighlightTool,
   getToolDefaultsById,
+  AnnotationPluginConfig,
 } from '@embedpdf/plugin-annotation/preact';
 import { LoadingIndicator } from './ui/loading-indicator';
 import { PrintPluginConfig, PrintPluginPackage } from '@embedpdf/plugin-print/preact';
@@ -195,6 +196,7 @@ export interface PluginConfigs {
   rotate?: RotatePluginConfig;
   tiling?: TilingPluginConfig;
   thumbnail?: ThumbnailPluginConfig;
+  annotation?: AnnotationPluginConfig;
 }
 
 export interface PDFViewerConfig {
@@ -245,6 +247,7 @@ function mergePluginConfigs(userConfigs: PluginConfigs = {}): Required<PluginCon
     rotate: { ...DEFAULT_PLUGIN_CONFIGS.rotate, ...userConfigs.rotate },
     tiling: { ...DEFAULT_PLUGIN_CONFIGS.tiling, ...userConfigs.tiling },
     thumbnail: { ...DEFAULT_PLUGIN_CONFIGS.thumbnail, ...userConfigs.thumbnail },
+    annotation: { ...DEFAULT_PLUGIN_CONFIGS.annotation, ...userConfigs.annotation },
   };
 }
 
@@ -2876,7 +2879,7 @@ export function PDFViewer({ config }: PDFViewerProps) {
           createPluginRegistration(SelectionPluginPackage),
           createPluginRegistration(TilingPluginPackage, pluginConfigs.tiling),
           createPluginRegistration(ThumbnailPluginPackage, pluginConfigs.thumbnail),
-          createPluginRegistration(AnnotationPluginPackage),
+          createPluginRegistration(AnnotationPluginPackage, pluginConfigs.annotation),
           createPluginRegistration(PrintPluginPackage),
           createPluginRegistration(FullscreenPluginPackage),
           createPluginRegistration(BookmarkPluginPackage),
