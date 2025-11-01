@@ -12,6 +12,93 @@
 
 ---
 
+## snippet模式扩展功能
+
+- 支持多语言，在原库的基础上添加i18next支持，已添加英语和简体中文的语言包。
+- 文本选中后的菜单支持通过参数的方式传递自定义按钮。
+- 支持通过参数的方式传递样式表重置默认的主题色。
+
+---
+
+## react调用示例
+
+```typescript jsx
+import React, {useMemo, useState, useEffect, useRef, useCallback} from 'react'
+
+import EmbedPDF from 'embedpdf-snippet-i18n'
+
+interface PDFViewerProps {
+  style?: React.CSSProperties
+  className?: string
+}
+
+export default function PDFViewer({style, className}: PDFViewerProps) {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
+  const styles = `:host {
+  --color-blue-50: oklch(96.9% 0.015 12.422);
+  --color-blue-100: oklch(94.1% 0.03 12.58);
+  --color-blue-200: oklch(89.2% 0.058 10.001);
+  --color-blue-300: oklch(81% 0.117 11.638);
+  --color-blue-400: oklch(71.2% 0.194 13.428);
+  --color-blue-500: oklch(64.5% 0.246 16.439);
+  --color-blue-600: oklch(58.6% 0.253 17.585);
+  --color-blue-700: oklch(51.4% 0.222 16.935);
+  --color-blue-800: oklch(45.5% 0.188 13.697);
+  --color-blue-900: oklch(41% 0.159 10.272);
+  --color-blue-950: oklch(27.1% 0.105 12.094);
+}`
+
+  useEffect(() => {
+    if (!viewerRef.current) return
+
+    const loadEmbedPDF = async () => {
+      try {
+
+        EmbedPDF.init({
+          type: 'container',
+          target: viewerRef.current!,
+          src: 'https://domain.com/demo/368653411.pdf',
+          worker: true,
+          plugins: {
+            annotation: {annotationAuthor: '匿名用户'}
+          },
+          wasmUrl: 'https://domain.com/pdfium.wasm',
+          textSelectionMenuExtActions: [{
+            id: 'action-ai',
+            img: '/AI.svg',
+            onClick: (text, selection) => {
+              console.log(text, selection)
+            },
+            label: 'AI解读'
+          }],
+          styles
+        })
+      } catch (error) {
+        console.error('Failed to load EmbedPDF:', error)
+      }
+    }
+
+    loadEmbedPDF()
+  }, [])
+
+  return (
+    <div
+      id='pdf-viewer'
+      className={className}
+      style={{
+        height: 'calc(100vh - 240px)',
+        ...style,
+      }}
+      ref={viewerRef}
+    />
+  )
+}
+
+```
+
+---
+
 ## 📚 Documentation
 
 The full walkthrough, advanced examples, and API reference live in our docs site:
