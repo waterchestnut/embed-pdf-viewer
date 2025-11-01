@@ -213,6 +213,7 @@ export interface PDFViewerConfig {
   plugins?: PluginConfigs;
   log?: boolean;
   textSelectionMenuExtActions?: TextSelectionMenuExtAction;
+  styles?: string;
 }
 
 // **Default Plugin Configurations**
@@ -2823,6 +2824,7 @@ export function PDFViewer({ config }: PDFViewerProps) {
     return (
       <>
         <style>{styles}</style>
+        <style>{config.styles}</style>
         <div className="flex h-full w-full items-center justify-center">
           <LoadingIndicator size="lg" text={t('PdfInitializing')} />
         </div>
@@ -2832,6 +2834,7 @@ export function PDFViewer({ config }: PDFViewerProps) {
   return (
     <>
       <style>{styles}</style>
+      <style>{config.styles}</style>
       <EmbedPDF
         logger={config.log ? logger : undefined}
         engine={engine}
