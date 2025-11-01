@@ -1,6 +1,6 @@
 {
   "name": "embedpdf-snippet-i18n",
-  "version": "1.0.0-4",
+  "version": "1.0.0-5",
   "private": false,
   "main": "dist/embedpdf.js",
   "types": "dist/embedpdf.d.ts",
