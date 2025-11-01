@@ -212,7 +212,7 @@ export interface PDFViewerConfig {
   wasmUrl?: string;
   plugins?: PluginConfigs;
   log?: boolean;
-  textSelectionMenuExtActions?: TextSelectionMenuExtAction;
+  textSelectionMenuExtActions?: TextSelectionMenuExtAction[];
   styles?: string;
 }
 
