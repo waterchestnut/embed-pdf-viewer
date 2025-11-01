@@ -1,5 +1,6 @@
 export default {
     'PdfLoading': 'Loading PDF document...',
+    'PdfInitializing': 'Initializing PDF engine...',
     'View': 'View',
     'Annotate': 'Annotate',
     'Shapes': 'Shapes',

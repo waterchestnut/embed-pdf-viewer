@@ -1,5 +1,6 @@
 export default {
     'PdfLoading': '正在加载PDF文件...',
+    'PdfInitializing': 'PDF引擎正在初始化...',
     'View': '阅读',
     'Annotate': '批注',
     'Shapes': '形状',
