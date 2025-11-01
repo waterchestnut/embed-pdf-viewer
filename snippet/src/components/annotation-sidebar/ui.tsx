@@ -330,16 +330,18 @@ export const LineEndingSelect = ({
 export const FontFamilySelect = (props: {
   value: PdfStandardFontFamily;
   onChange: (fam: PdfStandardFontFamily) => void;
-}) => (
-  <GenericSelect
-    {...props}
-    options={STANDARD_FONT_FAMILIES}
-    getOptionKey={(f) => f}
-    triggerClass="px-2 py-1 text-sm"
-    renderValue={(v) => <span>{standardFontFamilyLabel(v)}</span>}
-    renderOption={(f) => <div class="px-2 py-1">{standardFontFamilyLabel(f)}</div>}
-  />
-);
+}) => {
+  return (
+      <GenericSelect
+          {...props}
+          options={STANDARD_FONT_FAMILIES}
+          getOptionKey={(f) => f}
+          triggerClass="px-2 py-1 text-sm"
+          renderValue={(v) => <span>{standardFontFamilyLabel(v)}</span>}
+          renderOption={(f) => <div class="px-2 py-1">{standardFontFamilyLabel(f)}</div>}
+      />
+  )
+};
 
 // —— Font-size combo-box ────────────────────────────────────────────
 export const FontSizeInputSelect = ({

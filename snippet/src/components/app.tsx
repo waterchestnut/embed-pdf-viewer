@@ -2824,7 +2824,7 @@ export function PDFViewer({ config }: PDFViewerProps) {
       <>
         <style>{styles}</style>
         <div className="flex h-full w-full items-center justify-center">
-          <LoadingIndicator size="lg" text="Initializing PDF engine..." />
+          <LoadingIndicator size="lg" text={t('PdfInitializing')} />
         </div>
       </>
     );

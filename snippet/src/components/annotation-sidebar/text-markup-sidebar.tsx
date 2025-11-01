@@ -97,7 +97,7 @@ export const TextMarkupSidebar = ({
         >
           {blendModeSelectOptions.map((o) => (
             <option key={o.value} value={o.value}>
-              {o.label}
+              {t(`BlendMode.${o.label}`, o.label)}
             </option>
           ))}
         </select>
