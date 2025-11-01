@@ -9,7 +9,7 @@ import {
   ignore,
   PdfAnnotationSubtype,
   PdfBlendMode,
-  PdfSquigglyAnnoObject,
+  PdfSquigglyAnnoObject, PdfTask,
   PerfLogger,
   Rotation,
   uuidV4,
@@ -110,7 +110,7 @@ import {
   SELECTION_PLUGIN_ID,
   SelectionPlugin,
   SelectionPluginPackage,
-  SelectionState,
+  SelectionState, FormattedSelection,
 } from '@embedpdf/plugin-selection/preact';
 import {
   TilingLayer,
@@ -199,12 +199,20 @@ export interface PluginConfigs {
   annotation?: AnnotationPluginConfig;
 }
 
+export interface TextSelectionMenuExtAction {
+  id?: string;
+  img: string;
+  onClick?: (selectedText: PdfTask<string[]>, formattedSelection: FormattedSelection[]) => void;
+  label?: string;
+}
+
 export interface PDFViewerConfig {
   src: string;
   worker?: boolean;
   wasmUrl?: string;
   plugins?: PluginConfigs;
   log?: boolean;
+  textSelectionMenuExtActions?: TextSelectionMenuExtAction;
 }
 
 // **Default Plugin Configurations**
@@ -2803,6 +2811,8 @@ export function PDFViewer({ config }: PDFViewerProps) {
     worker: config.worker,
     logger: config.log ? logger : undefined,
   });
+
+  uiConfig.components.textSelectionMenu.props.extActions = config.textSelectionMenuExtActions || [];
 
   const { t } = useTranslation();
 

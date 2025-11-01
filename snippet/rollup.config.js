@@ -39,7 +39,7 @@ export default [
             dest: 'dist',
           },
           {
-            src: 'demo-pdf/*.pdf',
+            src: 'demo-pdf/*.*',
             dest: 'dist',
           },
         ],

@@ -27,7 +27,14 @@
         worker: true,
         plugins: {
             annotation: {annotationAuthor: '匿名用户'}
-        }
+        },
+        textSelectionMenuExtActions: [{
+            img: './AI.svg',
+            onClick: (...p) => {
+                console.log(p)
+            },
+            label: 'AI解读'
+        }]
     })
 </script>
 </body>

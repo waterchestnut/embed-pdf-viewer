@@ -55,6 +55,7 @@ import { SidebarAnnotationEntry } from '@embedpdf/plugin-annotation';
 import { useAttachmentCapability } from '@embedpdf/plugin-attachment/preact';
 
 import { useTranslation } from "react-i18next";
+import {TextSelectionMenuExtAction} from '@/components/app';
 
 export const iconButtonRenderer: ComponentRenderFunction<IconButtonProps> = (
   { commandId, onClick, active, iconProps, disabled = false, ...props },
@@ -714,6 +715,8 @@ export const textSelectionMenuRenderer: ComponentRenderFunction<TextSelectionMen
   const coords = menuPositionForSelection(bounding, scroll, viewport, 10, 42);
   if (!coords) return null; // nothing visible yet
 
+  //console.log(props)
+
   return (
     <div
       style={{
@@ -724,7 +727,16 @@ export const textSelectionMenuRenderer: ComponentRenderFunction<TextSelectionMen
       }}
       className="absolute rounded-md border border-[#cfd4da] bg-[#f8f9fa] p-1"
     >
-      {children()}
+      {
+        groupedItemsRenderer({gap: 10, id: 'text-selection-menu'}, () => [
+          props.extActions?.map((action: TextSelectionMenuExtAction, index: number) => iconButtonRenderer({
+            id: action.id || (index + ''), img: action.img, label: action.label, onClick: () => {
+              action.onClick && action.onClick(selection.getSelectedText(), selection.getFormattedSelection())
+            }
+          }, () => [], {direction: 'horizontal'})),
+          children()
+        ], {direction: 'horizontal'})
+      }
     </div>
   );
 };
