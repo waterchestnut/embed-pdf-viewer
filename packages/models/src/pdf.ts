@@ -271,6 +271,10 @@ export enum PdfStandardFont {
   Times_Italic = 11,
   Symbol = 12,
   ZapfDingbats = 13,
+  SimSun = 14,
+  SimSun_Bold = 15,
+  SimSun_BoldOblique = 16,
+  SimSun_Oblique = 17,
 }
 
 /**
@@ -1954,6 +1958,10 @@ export interface PdfFreeTextAnnoObject extends PdfAnnotationObjectBase {
    * Rich content of the free text annotation
    */
   richContent?: string;
+  /**
+   * Expanded Styles
+   */
+  extStyles: { [key: string]: string };
 }
 
 /**

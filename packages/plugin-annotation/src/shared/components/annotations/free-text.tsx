@@ -123,6 +123,7 @@ export function FreeText({
           outline: 'none',
           transform: needsComp ? `scale(${scaleComp})` : undefined,
           transformOrigin: 'top left',
+          ...annotation.object.extStyles,
         }}
         contentEditable={isEditing}
         {...suppressContentEditableWarningProps}

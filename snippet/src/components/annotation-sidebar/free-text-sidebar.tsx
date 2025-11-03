@@ -119,7 +119,9 @@ export const FreeTextSidebar = ({
   /* ────────────────────────  Font handlers  ──────────────────────────── */
   const updateFontEnum = (fam: PdfStandardFontFamily, b: boolean, i: boolean) => {
     const id = makeStandardFont(fam, { bold: b, italic: i });
-    applyPatch({ fontFamily: id });
+    const fontWeight = b ? 'bold' : 'normal';
+    const fontStyle = i ? 'italic' : 'normal';
+    applyPatch({ fontFamily: id, extStyles: {fontWeight, fontStyle} });
   };
 
   const onFamilyChange = (fam: PdfStandardFontFamily) => {

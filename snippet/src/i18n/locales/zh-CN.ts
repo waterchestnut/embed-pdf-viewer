@@ -171,4 +171,5 @@ export default {
     'Font.Times': 'Times',
     'Font.Symbol': 'Symbol',
     'Font.ZapfDingbats': 'ZapfDingbats',
+    'Font.SimSun': '宋体',
 }

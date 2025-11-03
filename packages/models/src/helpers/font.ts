@@ -14,6 +14,7 @@ export enum PdfStandardFontFamily {
   Symbol = 'Symbol',
   ZapfDingbats = 'ZapfDingbats',
   Unknown = 'Unknown',
+  SimSun = 'SimSun',
 }
 
 const DEFAULT_FALLBACK_FONT = PdfStandardFont.Helvetica;
@@ -153,6 +154,38 @@ const STANDARD_FONT_DESCRIPTORS: readonly StandardFontDescriptor[] = Object.free
     label: 'Zapf Dingbats',
     css: 'ZapfDingbats',
   },
+  {
+    id: PdfStandardFont.SimSun,
+    family: PdfStandardFontFamily.SimSun,
+    bold: false,
+    italic: false,
+    label: 'SimSun',
+    css: 'SimSun',
+  },
+  {
+    id: PdfStandardFont.SimSun_Bold,
+    family: PdfStandardFontFamily.SimSun,
+    bold: true,
+    italic: false,
+    label: 'SimSun Bold',
+    css: 'SimSun',
+  },
+  {
+    id: PdfStandardFont.SimSun_BoldOblique,
+    family: PdfStandardFontFamily.SimSun,
+    bold: true,
+    italic: true,
+    label: 'SimSun Bold Oblique',
+    css: 'SimSun',
+  },
+  {
+    id: PdfStandardFont.SimSun_Oblique,
+    family: PdfStandardFontFamily.SimSun,
+    bold: false,
+    italic: true,
+    label: 'SimSun Oblique',
+    css: 'SimSun',
+  },
 ]);
 
 /* Fast lookup maps */
@@ -250,6 +283,8 @@ export function standardFontFamilyLabel(fam: PdfStandardFontFamily): string {
       return 'Symbol';
     case PdfStandardFontFamily.ZapfDingbats:
       return 'ZapfDingbats';
+    case PdfStandardFontFamily.SimSun:
+      return 'SimSun';
     /* fallback */
     default:
       return 'Helvetica';
