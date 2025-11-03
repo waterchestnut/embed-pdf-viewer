@@ -8,6 +8,7 @@ import {
   PdfAnnotationBorderStyle,
   PdfAnnotationLineEnding,
 } from '@embedpdf/models';
+import {useTranslation} from 'react-i18next'
 
 /* * ==================================================================
  * Reusable Dropdown Hook & Generic Components
@@ -331,6 +332,9 @@ export const FontFamilySelect = (props: {
   value: PdfStandardFontFamily;
   onChange: (fam: PdfStandardFontFamily) => void;
 }) => {
+
+  const { t } = useTranslation();
+
   return (
       <GenericSelect
           {...props}
@@ -338,7 +342,7 @@ export const FontFamilySelect = (props: {
           getOptionKey={(f) => f}
           triggerClass="px-2 py-1 text-sm"
           renderValue={(v) => <span>{standardFontFamilyLabel(v)}</span>}
-          renderOption={(f) => <div class="px-2 py-1">{standardFontFamilyLabel(f)}</div>}
+          renderOption={(f) => <div class="px-2 py-1">{t(`Font.${standardFontFamilyLabel(f)}`, standardFontFamilyLabel(f))}</div>}
       />
   )
 };

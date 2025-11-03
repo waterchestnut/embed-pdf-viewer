@@ -214,6 +214,7 @@ export interface PDFViewerConfig {
   log?: boolean;
   textSelectionMenuExtActions?: TextSelectionMenuExtAction[];
   styles?: string;
+  locale?: string;
 }
 
 // **Default Plugin Configurations**
