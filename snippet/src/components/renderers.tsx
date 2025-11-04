@@ -731,8 +731,8 @@ export const textSelectionMenuRenderer: ComponentRenderFunction<TextSelectionMen
         groupedItemsRenderer({gap: 10, id: 'text-selection-menu'}, () => [
           props.extActions?.map((action: TextSelectionMenuExtAction, index: number) => iconButtonRenderer({
             id: action.id || (index + ''), img: action.img, label: action.label, onClick: () => {
-              selection.clear();
               action.onClick && action.onClick(selection.getSelectedText(), selection.getFormattedSelection());
+              selection.clear();
             }
           }, () => [], {direction: 'horizontal'})),
           children()
