@@ -39,9 +39,11 @@
         target: document.getElementById('pdf-viewer'),
         src: 'https://snippet.embedpdf.com/ebook.pdf',
         name: '测试的文件.pdf',
+        id: 'pdf-test',
         worker: true,
         plugins: {
-            annotation: {annotationAuthor: '匿名用户'}
+            annotation: {annotationAuthor: '匿名用户'},
+            loader: {}
         },
         textSelectionMenuExtActions: [{
             img: './AI.svg',
@@ -52,6 +54,12 @@
         }],
         styles,
         locale: 'zh-CN',
+        onInitialized: (registry) => {
+            window.registry = registry
+            registry?.getPlugin('loader')?.provides()?.onDocumentLoaded((document) => {
+                console.log(document)
+            })
+        },
     })
 </script>
 </body>

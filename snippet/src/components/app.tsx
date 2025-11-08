@@ -1,7 +1,7 @@
 import { h, Fragment } from 'preact';
 import styles from '../styles/index.css';
 import { EmbedPDF } from '@embedpdf/core/preact';
-import { createPluginRegistration } from '@embedpdf/core';
+import {createPluginRegistration, PluginRegistry} from '@embedpdf/core';
 import { usePdfiumEngine } from '@embedpdf/engines/preact';
 import {
   AllLogger,
@@ -40,7 +40,7 @@ import {
 } from '@embedpdf/plugin-spread/preact';
 import {
   LOADER_PLUGIN_ID,
-  LoaderPlugin,
+  LoaderPlugin, LoaderPluginConfig,
   LoaderPluginPackage,
 } from '@embedpdf/plugin-loader/preact';
 import {
@@ -197,6 +197,7 @@ export interface PluginConfigs {
   tiling?: TilingPluginConfig;
   thumbnail?: ThumbnailPluginConfig;
   annotation?: AnnotationPluginConfig;
+  loader?: LoaderPluginConfig;
 }
 
 export interface TextSelectionMenuExtAction {
@@ -207,7 +208,8 @@ export interface TextSelectionMenuExtAction {
 }
 
 export interface PDFViewerConfig {
-  name?: string
+  id?: string;
+  name?: string;
   src: string;
   worker?: boolean;
   wasmUrl?: string;
@@ -216,6 +218,7 @@ export interface PDFViewerConfig {
   textSelectionMenuExtActions?: TextSelectionMenuExtAction[];
   styles?: string;
   locale?: string;
+  onInitialized?: (registry: PluginRegistry) => void;
 }
 
 // **Default Plugin Configurations**
@@ -2871,17 +2874,21 @@ export function PDFViewer({ config }: PDFViewerProps) {
               leftPanelAnnotationStyleRenderer,
             );
           }
+
+          config.onInitialized && config.onInitialized(registry)
         }}
         plugins={[
           createPluginRegistration(UIPluginPackage, uiConfig),
           createPluginRegistration(LoaderPluginPackage, {
+            ...pluginConfigs.loader,
             loadingOptions: {
               type: 'url',
               pdfFile: {
-                id: 'pdf',
+                id: config.id || 'pdf',
                 name: config.name || 'embedpdf-ebook.pdf',
                 url: config.src,
               },
+              ...pluginConfigs.loader?.loadingOptions
             },
           }),
           createPluginRegistration(ViewportPluginPackage, pluginConfigs.viewport),
