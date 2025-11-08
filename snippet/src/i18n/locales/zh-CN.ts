@@ -21,7 +21,7 @@ export default {
     'Polyline': '多段线',
     'Polygon': '多边形',
     'Free Text': '任意文本',
-    'Photo': '图片',
+    'Photo': '印章',
     'Squiggly Selection': '下划曲线',
     'Underline Selection': '下划线',
     'Strikethrough Selection': '删除线',

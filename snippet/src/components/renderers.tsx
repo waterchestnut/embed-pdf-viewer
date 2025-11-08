@@ -57,7 +57,7 @@ import { useAttachmentCapability } from '@embedpdf/plugin-attachment/preact';
 import { useTranslation } from "react-i18next";
 import {TextSelectionMenuExtAction} from '@/components/app';
 
-export const iconButtonRenderer: ComponentRenderFunction<IconButtonProps> = (
+export const iconButtonRenderer: ComponentRenderFunction<IconButtonProps & {imgNode?: any}> = (
   { commandId, onClick, active, iconProps, disabled = false, ...props },
   children,
   context,
@@ -105,7 +105,10 @@ export const iconButtonRenderer: ComponentRenderFunction<IconButtonProps> = (
         className={` ${context?.variant === 'flyout' ? 'w-full rounded-none px-2' : ''} `}
       >
         {!command?.icon && props.img && (
-          <img src={props.img} alt={props.label} className="h-5 w-5" />
+          <img src={props.img} alt={t(props.label || '')} className="h-5 w-5" />
+        )}
+        {!command?.icon && props.imgNode && (
+            typeof props.imgNode === 'string' ? <div className="h-5 w-5" dangerouslySetInnerHTML={{__html: props.imgNode}}></div> : props.imgNode
         )}
         {command?.icon && <Icon icon={command.icon} className="h-5 w-5" {...iconProps} />}
       </Button>
@@ -224,6 +227,34 @@ export const headerRenderer: ComponentRenderFunction<HeaderProps> = (props, chil
       })}
     </div>
   );
+};
+
+export interface ExtIconAction {
+  id?: string;
+  img?: string;
+  imgNode?: any;
+  onClick?: () => void;
+  label?: string;
+}
+
+export interface CustomExtProps {
+  extActions?: ExtIconAction[];
+  extNode: any;
+}
+
+export const customExtRenderer: ComponentRenderFunction<CustomExtProps> = (props, children) => {
+  return (
+      <div>
+        {typeof props.extNode === 'string' ? <div dangerouslySetInnerHTML={{__html: props.extNode}}></div> : props.extNode}
+        {
+          props.extActions?.map((action: ExtIconAction, index: number) => iconButtonRenderer({
+            id: action.id || (index + ''), img: action.img, imgNode: action.imgNode, label: action.label, onClick: () => {
+              action.onClick && action.onClick();
+            }
+          }, () => [], {direction: 'horizontal'}))
+        }
+      </div>
+  )
 };
 
 export interface LeftPanelMainProps {
@@ -730,7 +761,7 @@ export const textSelectionMenuRenderer: ComponentRenderFunction<TextSelectionMen
       {
         groupedItemsRenderer({gap: 10, id: 'text-selection-menu'}, () => [
           props.extActions?.map((action: TextSelectionMenuExtAction, index: number) => iconButtonRenderer({
-            id: action.id || (index + ''), img: action.img, label: action.label, onClick: () => {
+            id: action.id || (index + ''), img: action.img, imgNode: action.imgNode, label: action.label, onClick: () => {
               action.onClick && action.onClick(selection.getSelectedText(), selection.getFormattedSelection());
               selection.clear();
             }

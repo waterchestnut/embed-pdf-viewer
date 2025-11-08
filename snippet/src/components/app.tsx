@@ -78,7 +78,7 @@ import {
   thumbnailsRender,
   zoomRenderer,
   ZoomRendererProps,
-  printModalRenderer,
+  printModalRenderer, customExtRenderer, ExtIconAction,
 } from './renderers';
 import { leftPanelAnnotationStyleRenderer } from './annotation-sidebar';
 import {
@@ -202,7 +202,8 @@ export interface PluginConfigs {
 
 export interface TextSelectionMenuExtAction {
   id?: string;
-  img: string;
+  img?: string;
+  imgNode?: any;
   onClick?: (selectedText: PdfTask<string[]>, formattedSelection: FormattedSelection[]) => void;
   label?: string;
 }
@@ -219,6 +220,8 @@ export interface PDFViewerConfig {
   styles?: string;
   locale?: string;
   onInitialized?: (registry: PluginRegistry) => void;
+  headerEndExtActions?: ExtIconAction[];
+  headerEndExtNode?: any;
 }
 
 // **Default Plugin Configurations**
@@ -2402,10 +2405,19 @@ export const components: Record<string, UIComponentType<State>> = {
       gap: 10,
     },
   },
+  headerEndExt: {
+    id: 'headerEndExt',
+    type: 'custom',
+    slots: [
+    ],
+    props: {
+    },
+  },
   headerEnd: {
     id: 'headerEnd',
     type: 'groupedItems',
     slots: [
+      { componentId: 'headerEndExt', priority: 0 },
       { componentId: 'searchButton', priority: 1 },
       { componentId: 'commentButton', priority: 2 },
     ],
@@ -2819,6 +2831,8 @@ export function PDFViewer({ config }: PDFViewerProps) {
   });
 
   uiConfig.components.textSelectionMenu.props.extActions = config.textSelectionMenuExtActions || [];
+  uiConfig.components.headerEndExt.props.extActions = config.headerEndExtActions || [];
+  uiConfig.components.headerEndExt.props.extNode = config.headerEndExtNode;
 
   const { t } = useTranslation();
 
@@ -2851,6 +2865,7 @@ export function PDFViewer({ config }: PDFViewerProps) {
             uiCapability.registerComponentRenderer('iconButton', iconButtonRenderer);
             uiCapability.registerComponentRenderer('tabButton', tabButtonRenderer);
             uiCapability.registerComponentRenderer('header', headerRenderer);
+            uiCapability.registerComponentRenderer('custom', customExtRenderer);
             uiCapability.registerComponentRenderer('divider', dividerRenderer);
             uiCapability.registerComponentRenderer('panel', panelRenderer);
             uiCapability.registerComponentRenderer('search', searchRenderer);
