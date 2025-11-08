@@ -207,6 +207,7 @@ export interface TextSelectionMenuExtAction {
 }
 
 export interface PDFViewerConfig {
+  name?: string
   src: string;
   worker?: boolean;
   wasmUrl?: string;
@@ -2878,7 +2879,7 @@ export function PDFViewer({ config }: PDFViewerProps) {
               type: 'url',
               pdfFile: {
                 id: 'pdf',
-                name: 'embedpdf-ebook.pdf',
+                name: config.name || 'embedpdf-ebook.pdf',
                 url: config.src,
               },
             },

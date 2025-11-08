@@ -1,5 +1,5 @@
 import { h, Fragment } from 'preact';
-import { useCaptureCapability } from '@embedpdf/plugin-capture/preact';
+import { useCaptureCapability, useCapturePlugin } from '@embedpdf/plugin-capture/preact';
 import { useState, useRef, useEffect } from 'preact/hooks';
 import { Dialog } from './ui/dialog';
 import { Button } from './ui/button';
@@ -14,6 +14,7 @@ interface CaptureData {
 
 export function Capture() {
   const { provides: capture } = useCaptureCapability();
+  const { plugin: capturePlugin } = useCapturePlugin();
   const [open, setOpen] = useState(false);
   const [captureData, setCaptureData] = useState<CaptureData | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -47,7 +48,7 @@ export function Capture() {
 
     // Use the ref to trigger download
     downloadLinkRef.current.href = url;
-    downloadLinkRef.current.download = `pdf-capture-page-${captureData.pageIndex + 1}.png`;
+    downloadLinkRef.current.download = capturePlugin?.coreState?.core?.document?.name ? `${capturePlugin.coreState.core.document.name.replaceAll(/.pdf/ig, '')}-${captureData.pageIndex + 1}.png` : `pdf-capture-page-${captureData.pageIndex + 1}.png`;
     downloadLinkRef.current.click();
 
     handleClose();
