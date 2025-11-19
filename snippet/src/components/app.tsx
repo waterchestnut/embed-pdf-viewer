@@ -223,6 +223,8 @@ export interface PDFViewerConfig {
   headerEndExtActions?: ExtIconAction[];
   headerEndExtNode?: any;
   captureExtActions?: ExtIconAction[];
+  headerStartExtActions?: ExtIconAction[];
+  headerStartExtNode?: any;
 }
 
 // **Default Plugin Configurations**
@@ -2229,10 +2231,19 @@ export const components: Record<string, UIComponentType<State>> = {
       active: isActive(menuItems.leftAction, storeState),
     }),
   },
+  headerStartExt: {
+    id: 'headerStartExt',
+    type: 'custom',
+    slots: [
+    ],
+    props: {
+    },
+  },
   headerStart: {
     id: 'headerStart',
     type: 'groupedItems',
     slots: [
+      { componentId: 'headerStartExt', priority: -1 },
       { componentId: 'menuButton', priority: 0 },
       { componentId: 'divider1', priority: 1, className: 'flex' },
       { componentId: 'sidebarButton', priority: 2 },
@@ -2834,6 +2845,8 @@ export function PDFViewer({ config }: PDFViewerProps) {
   uiConfig.components.textSelectionMenu.props.extActions = config.textSelectionMenuExtActions || [];
   uiConfig.components.headerEndExt.props.extActions = config.headerEndExtActions || [];
   uiConfig.components.headerEndExt.props.extNode = config.headerEndExtNode;
+  uiConfig.components.headerStartExt.props.extActions = config.headerStartExtActions || [];
+  uiConfig.components.headerStartExt.props.extNode = config.headerStartExtNode;
 
   const { t } = useTranslation();
 
