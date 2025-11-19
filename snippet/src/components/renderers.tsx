@@ -233,7 +233,7 @@ export interface ExtIconAction {
   id?: string;
   img?: string;
   imgNode?: any;
-  onClick?: () => void;
+  onClick?: (p1?:any, p2?:any, p3?:any) => void;
   label?: string;
 }
 

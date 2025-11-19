@@ -222,6 +222,7 @@ export interface PDFViewerConfig {
   onInitialized?: (registry: PluginRegistry) => void;
   headerEndExtActions?: ExtIconAction[];
   headerEndExtNode?: any;
+  captureExtActions?: ExtIconAction[];
 }
 
 // **Default Plugin Configurations**
@@ -3084,7 +3085,7 @@ export function PDFViewer({ config }: PDFViewerProps) {
                   {headers.bottom.length > 0 && <div>{headers.bottom}</div>}
                   {commandMenu}
                 </div>
-                <Capture />
+                <Capture captureExtActions={config.captureExtActions} />
               </>
             )}
           </PluginUIProvider>

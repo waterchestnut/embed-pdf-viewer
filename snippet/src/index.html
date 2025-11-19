@@ -38,6 +38,7 @@
         type: 'container',
         target: document.getElementById('pdf-viewer'),
         src: 'https://snippet.embedpdf.com/ebook.pdf',
+        wasmUrl: `https://pdfviewer.xxzx.paretop.net/pdfium.wasm`,
         name: '测试的文件.pdf',
         id: 'pdf-test',
         worker: true,
@@ -82,6 +83,13 @@
                 console.log(registry?.getPlugin('export')?.saveAsCopyAndGetBufferAndName())
             },
             label: '保存批注'
+        }],
+        captureExtActions: [{
+            img: './AI.svg',
+            onClick: (p1) => {
+                console.log(p1)
+            },
+            label: 'AI解读'
         }],
     })
 </script>

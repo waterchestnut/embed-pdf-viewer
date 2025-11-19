@@ -5,6 +5,7 @@ import { Dialog } from './ui/dialog';
 import { Button } from './ui/button';
 
 import { useTranslation } from "react-i18next";
+import {ExtIconAction, iconButtonRenderer} from '@/components/renderers'
 
 interface CaptureData {
   pageIndex: number;
@@ -12,7 +13,11 @@ interface CaptureData {
   blob: Blob;
 }
 
-export function Capture() {
+export interface CaptureDataProps {
+  captureExtActions?: ExtIconAction[];
+}
+
+export function Capture(props: CaptureDataProps) {
   const { provides: capture } = useCaptureCapability();
   const { plugin: capturePlugin } = useCapturePlugin();
   const [open, setOpen] = useState(false);
@@ -21,6 +26,8 @@ export function Capture() {
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const urlRef = useRef<string | null>(null);
   const downloadLinkRef = useRef<HTMLAnchorElement>(null);
+
+  const {captureExtActions} = props;
 
   const { t } = useTranslation();
 
@@ -110,6 +117,14 @@ export function Capture() {
             >
               {t('Download')}
             </Button>
+            {
+              captureExtActions?.map((action: ExtIconAction, index: number) => iconButtonRenderer({
+                id: action.id || (index + ''), img: action.img, imgNode: action.imgNode, label: action.label, onClick: async () => {
+                  action.onClick && (await action.onClick(captureData?.blob));
+                  handleClose();
+                }
+              }, () => [], {direction: 'horizontal'}))
+            }
           </div>
         </div>
       </Dialog>
