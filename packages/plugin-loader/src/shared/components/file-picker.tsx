@@ -19,6 +19,7 @@ export function FilePicker() {
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = (e.currentTarget as HTMLInputElement).files?.[0];
     if (file && cap)
+      cap.fileOpened(file);
       await cap.loadDocument({
         type: 'buffer',
         pdfFile: {

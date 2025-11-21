@@ -18,9 +18,11 @@ export interface LoaderCapability {
   onLoaderEvent: EventHook<LoaderEvent>;
   onDocumentLoaded: EventHook<PdfDocumentObject>;
   onOpenFileRequest: EventHook<'open'>;
+  onFileOpened: EventHook<File>;
   loadDocument(options: Omit<PDFLoadingOptions, 'engine'>): Promise<PdfDocumentObject>;
   registerStrategy(name: string, strategy: PDFLoadingStrategy): void;
   getDocument(): PdfDocumentObject | undefined;
   addStrategyResolver(resolver: StrategyResolver): void;
   openFileDialog: () => void;
+  fileOpened(file: File): void;
 }

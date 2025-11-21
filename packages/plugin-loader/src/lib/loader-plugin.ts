@@ -18,6 +18,7 @@ export class LoaderPlugin extends BasePlugin<LoaderPluginConfig, LoaderCapabilit
   private readonly loaderHandlers$ = createBehaviorEmitter<LoaderEvent>();
   private readonly documentLoadedHandlers$ = createBehaviorEmitter<PdfDocumentObject>();
   private readonly openFileRequest$ = createEmitter<'open'>();
+  private readonly fileOpenedHandlers$ = createBehaviorEmitter<File>();
 
   private documentLoader: PDFDocumentLoader;
   private loadingOptions?: Omit<PDFLoadingOptions, 'engine'>;
@@ -36,11 +37,13 @@ export class LoaderPlugin extends BasePlugin<LoaderPluginConfig, LoaderCapabilit
       onLoaderEvent: this.loaderHandlers$.on,
       onDocumentLoaded: this.documentLoadedHandlers$.on,
       onOpenFileRequest: this.openFileRequest$.on,
+      onFileOpened: this.fileOpenedHandlers$.on,
       openFileDialog: () => this.openFileRequest$.emit('open'),
       loadDocument: (options) => this.loadDocument(options),
       registerStrategy: (name, strategy) => this.documentLoader.registerStrategy(name, strategy),
       getDocument: () => this.loadedDocument,
       addStrategyResolver: (resolver) => this.documentLoader.addStrategyResolver(resolver),
+      fileOpened: (file) => this.fileOpenedHandlers$.emit(file),
     };
   }
 
@@ -97,6 +100,7 @@ export class LoaderPlugin extends BasePlugin<LoaderPluginConfig, LoaderCapabilit
     this.loaderHandlers$.clear();
     this.documentLoadedHandlers$.clear();
     this.openFileRequest$.clear();
+    this.fileOpenedHandlers$.clear();
     super.destroy();
   }
 }

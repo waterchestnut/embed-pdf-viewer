@@ -60,6 +60,9 @@
             registry?.getPlugin('loader')?.provides()?.onDocumentLoaded((document) => {
                 console.log(document)
             })
+            registry?.getPlugin('loader')?.provides()?.onFileOpened((file) => {
+                console.log(file)
+            })
         },
         headerEndExtActions: [{
             imgNode: `<svg
