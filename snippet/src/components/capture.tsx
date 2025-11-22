@@ -7,7 +7,7 @@ import { Button } from './ui/button';
 import { useTranslation } from "react-i18next";
 import {ExtIconAction, iconButtonRenderer} from '@/components/renderers'
 
-interface CaptureData {
+export interface CaptureData {
   pageIndex: number;
   rect: any;
   blob: Blob;
