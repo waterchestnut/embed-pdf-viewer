@@ -120,7 +120,7 @@ export function Capture(props: CaptureDataProps) {
             {
               captureExtActions?.map((action: ExtIconAction, index: number) => iconButtonRenderer({
                 id: action.id || (index + ''), img: action.img, imgNode: action.imgNode, label: action.label, onClick: async () => {
-                  action.onClick && (await action.onClick(captureData?.blob));
+                  action.onClick && (await action.onClick(captureData));
                   handleClose();
                 }
               }, () => [], {direction: 'horizontal'}))
