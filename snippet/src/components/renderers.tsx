@@ -108,7 +108,7 @@ export const iconButtonRenderer: ComponentRenderFunction<IconButtonProps & {imgN
           <img src={props.img} alt={t(props.label || '')} className="h-5 w-5" />
         )}
         {!command?.icon && props.imgNode && (
-            typeof props.imgNode === 'string' ? <div className="h-5 w-5" dangerouslySetInnerHTML={{__html: props.imgNode}}></div> : props.imgNode
+            typeof props.imgNode === 'string' ? <div className="h-5" dangerouslySetInnerHTML={{__html: props.imgNode}}></div> : props.imgNode
         )}
         {command?.icon && <Icon icon={command.icon} className="h-5 w-5" {...iconProps} />}
       </Button>
