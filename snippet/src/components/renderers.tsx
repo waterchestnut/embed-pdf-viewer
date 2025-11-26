@@ -244,7 +244,7 @@ export interface CustomExtProps {
 
 export const customExtRenderer: ComponentRenderFunction<CustomExtProps> = (props, children) => {
   return (
-      <div>
+      <>
         {typeof props.extNode === 'string' ? <div dangerouslySetInnerHTML={{__html: props.extNode}}></div> : props.extNode}
         {
           props.extActions?.map((action: ExtIconAction, index: number) => iconButtonRenderer({
@@ -253,7 +253,7 @@ export const customExtRenderer: ComponentRenderFunction<CustomExtProps> = (props
             }
           }, () => [], {direction: 'horizontal'}))
         }
-      </div>
+      </>
   )
 };
 
