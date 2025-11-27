@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmbedPDF</title>
+    <style>
+        html, body {
+            overscroll-behavior: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="pdf-viewer" style="height: 100dvh"></div>
+<script async type="module">
+    import EmbedPDF from './embedpdf.js'
+
+    const styles = `:host {
+  --color-blue-50: oklch(96.9% 0.015 12.422);
+  --color-blue-100: oklch(94.1% 0.03 12.58);
+  --color-blue-200: oklch(89.2% 0.058 10.001);
+  --color-blue-300: oklch(81% 0.117 11.638);
+  --color-blue-400: oklch(71.2% 0.194 13.428);
+  --color-blue-500: oklch(64.5% 0.246 16.439);
+  --color-blue-600: oklch(58.6% 0.253 17.585);
+  --color-blue-700: oklch(51.4% 0.222 16.935);
+  --color-blue-800: oklch(45.5% 0.188 13.697);
+  --color-blue-900: oklch(41% 0.159 10.272);
+  --color-blue-950: oklch(27.1% 0.105 12.094);
+}`
+
+    const EPDFinstance = EmbedPDF.init({
+        type: 'container',
+        target: document.getElementById('pdf-viewer'),
+        src: 'https://snippet.embedpdf.com/ebook.pdf',
+        wasmUrl: `https://pdfviewer.xxzx.paretop.net/pdfium.wasm`,
+        name: '测试的文件.pdf',
+        id: 'pdf-test',
+        worker: true,
+        plugins: {
+            annotation: {annotationAuthor: '匿名用户'},
+            loader: {}
+        },
+        textSelectionMenuExtActions: [{
+            img: './AI.svg',
+            onClick: (...p) => {
+                console.log(p)
+            },
+            label: 'AI解读'
+        }],
+        styles,
+        locale: 'zh-CN',
+        onInitialized: (registry) => {
+            window.registry = registry
+            registry?.getPlugin('loader')?.provides()?.onDocumentLoaded((document) => {
+                console.log(document)
+            })
+            registry?.getPlugin('loader')?.provides()?.onFileOpened((file) => {
+                console.log(file)
+            })
+        },
+        headerEndExtActions: [{
+            imgNode: `<svg
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                stroke-width='2'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                role='img'
+                class='h-5 w-5'
+            >
+                <path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+                <path d='M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2'/>
+                <path d='M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0'/>
+                <path d='M14 4l0 4l-6 0l0 -4'/>
+            </svg>`,
+            onClick: () => {
+                console.log(registry?.getPlugin('export')?.saveAsCopyAndGetBufferAndName())
+            },
+            label: '保存批注'
+        }],
+        captureExtActions: [{
+            img: './AI.svg',
+            onClick: (p1) => {
+                console.log(p1)
+            },
+            label: 'AI解读'
+        }],
+        headerStartExtActions: [{
+            img: './AI.svg',
+            onClick: (p1) => {
+                console.log(p1)
+            },
+            label: '返回'
+        }]
+    })
+</script>
+</body>
+</html>
