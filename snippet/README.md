@@ -1,18 +1,12 @@
-<div align="center">
-  <a href="https://www.embedpdf.com">
-    <img alt="EmbedPDF logo" src="https://www.embedpdf.com/logo-192.png" height="96">
-  </a>
+## 🚀 在线体验
 
-  <h1>EmbedPDF Snippet</h1>
-  <p>The easiest way to embed PDF files in your website with a complete, ready‑to‑use interface.</p>
+英文👉 **[https://snippet.embedpdf.com](https://snippet.embedpdf.com)**
 
-  <a href="https://www.embedpdf.com/docs/snippet/introduction"><img alt="Documentation" src="https://img.shields.io/badge/View%20Docs-0af?style=for-the-badge&labelColor=000000"></a>
-  <a href="https://snippet.embedpdf.com/"><img alt="Live Demo" src="https://img.shields.io/badge/Try%20Live%20Demo-ff1493.svg?style=for-the-badge&labelColor=000000"></a>
-</div>
+中文👉 **[https://waterchestnut.github.io/embed-pdf-viewer](https://waterchestnut.github.io/embed-pdf-viewer)**
 
 ---
 
-## snippet模式扩展功能
+## 对snippet/embedpdf模式扩展功能
 
 - 支持多语言，在原库的基础上添加i18next支持，已添加英语和简体中文的语言包。
 - 文本选中后的菜单支持通过参数的方式传递自定义按钮。
@@ -98,7 +92,7 @@ export default function PDFViewer({style, className}: PDFViewerProps) {
 ```
 
 ---
-
+# 以下内容为原库使用介绍
 ## 📚 Documentation
 
 The full walkthrough, advanced examples, and API reference live in our docs site:
