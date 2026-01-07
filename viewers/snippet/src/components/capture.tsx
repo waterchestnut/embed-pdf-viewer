@@ -1,29 +1,36 @@
-import { h, Fragment } from 'preact';
-import { useCaptureCapability } from '@embedpdf/plugin-capture/preact';
-import { useState, useRef, useEffect } from 'preact/hooks';
-import { Dialog } from './ui/dialog';
-import { Button } from './ui/button';
-import { useTranslations } from '@embedpdf/plugin-i18n/preact';
+import {h, Fragment} from 'preact';
+import {useCaptureCapability} from '@embedpdf/plugin-capture/preact';
+import {useState, useRef, useEffect} from 'preact/hooks';
+import {Dialog} from './ui/dialog';
+import {Button} from './ui/button';
+import {useTranslations} from '@embedpdf/plugin-i18n/preact';
 
-interface CaptureData {
+export interface CaptureData {
   pageIndex: number;
   rect: any;
   blob: Blob;
 }
 
-export interface CaptureProps {
-  documentId: string;
+export interface CaptureExtAction {
+  id?: string;
+  onClick?: (captureData?: CaptureData | null) => void;
+  label?: string;
 }
 
-export function Capture({ documentId }: CaptureProps) {
-  const { provides: capture } = useCaptureCapability();
+export interface CaptureProps {
+  documentId: string;
+  captureExtActions?: CaptureExtAction[];
+}
+
+export function Capture({documentId, captureExtActions}: CaptureProps) {
+  const {provides: capture} = useCaptureCapability();
   const [open, setOpen] = useState(false);
   const [captureData, setCaptureData] = useState<CaptureData | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const urlRef = useRef<string | null>(null);
   const downloadLinkRef = useRef<HTMLAnchorElement>(null);
-  const { translate } = useTranslations(documentId);
+  const {translate} = useTranslations(documentId);
 
   const handleClose = () => {
     // Clean up object URLs
@@ -58,8 +65,8 @@ export function Capture({ documentId }: CaptureProps) {
   useEffect(() => {
     if (!capture) return;
 
-    return capture.onCaptureArea(({ pageIndex, rect, blob }) => {
-      setCaptureData({ pageIndex, rect, blob });
+    return capture.onCaptureArea(({pageIndex, rect, blob}) => {
+      setCaptureData({pageIndex, rect, blob});
 
       // Create preview URL
       const objectUrl = URL.createObjectURL(blob);
@@ -79,7 +86,7 @@ export function Capture({ documentId }: CaptureProps) {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose} title={translate('capture.title')}>
+      <Dialog open={open} onClose={handleClose} width='48rem' title={translate('capture.title')}>
         <div className="space-y-6">
           <div className="flex justify-center">
             {previewUrl && (
@@ -111,12 +118,25 @@ export function Capture({ documentId }: CaptureProps) {
             >
               {translate('capture.download')}
             </Button>
+            {
+              captureExtActions?.map((action) => (
+                <Button
+                  onClick={async () => {
+                    action.onClick && (await action.onClick(captureData))
+                    handleClose();
+                  }}
+                  className="border-border-default bg-bg-surface text-fg-secondary hover:bg-interactive-hover rounded-md border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {action.label}
+                </Button>
+              ))
+            }
           </div>
         </div>
       </Dialog>
 
       {/* Hidden download link */}
-      <a ref={downloadLinkRef} style={{ display: 'none' }} href="" download="" />
+      <a ref={downloadLinkRef} style={{display: 'none'}} href="" download=""/>
     </>
   );
 }

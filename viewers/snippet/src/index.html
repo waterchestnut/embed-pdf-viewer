@@ -48,6 +48,22 @@
       i18n: {
         defaultLocale: 'zh-CN'
       },
+      captureExtActions: [
+        {
+          id: 'custom.capture.ai',
+          label: 'AI解读',
+          onClick: (captureData) => {
+            console.log(captureData)
+          }
+        },
+        {
+          id: 'custom.capture.trans',
+          label: '翻译',
+          onClick: (captureData) => {
+            console.log(captureData)
+          }
+        },
+      ],
       icons: {
         custom_ai: {
           viewBox: '0 0 1024 1024',
