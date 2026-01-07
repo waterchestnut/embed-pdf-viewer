@@ -28,6 +28,7 @@ import { AttachmentPluginConfig } from '@embedpdf/plugin-attachment/preact';
 import { ThemeConfig } from '@/config/theme';
 import { IconsConfig } from '@/config/icon-registry';
 import { TabBarVisibility } from '@/components/tab-bar';
+import { CaptureExtAction } from '@/components/capture';
 export interface PDFViewerConfig {
     /** URL or path to the PDF document. If not provided, viewer loads with no document. */
     src?: string;
@@ -118,6 +119,7 @@ export interface PDFViewerConfig {
     history?: Partial<HistoryPluginConfig>;
     /** Interaction manager options (exclusionRules) */
     interactionManager?: Partial<InteractionManagerPluginConfig>;
+    captureExtActions?: CaptureExtAction[];
 }
 interface PDFViewerProps {
     config: PDFViewerConfig;

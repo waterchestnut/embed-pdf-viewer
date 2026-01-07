@@ -1,3 +1,6 @@
 import { h } from 'preact';
-export declare const HintLayer: () => h.JSX.Element | null;
+export interface HintLayerProps {
+    documentId: string;
+}
+export declare const HintLayer: ({ documentId }: HintLayerProps) => h.JSX.Element | null;
 //# sourceMappingURL=hint-layer.d.ts.map
