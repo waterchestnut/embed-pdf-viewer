@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useInteractionManager } from '@embedpdf/plugin-interaction-manager/preact';
+import {useInteractionManagerCapability} from '@embedpdf/plugin-interaction-manager/preact';
 import { useEffect, useState } from 'preact/hooks';
 
 interface HintState {
@@ -9,7 +9,7 @@ interface HintState {
 }
 
 export const HintLayer = () => {
-  const { provides: interactionManager } = useInteractionManager();
+  const { provides: interactionManager } = useInteractionManagerCapability();
   const [hint, setHint] = useState<HintState>({
     show: false,
     mode: null,

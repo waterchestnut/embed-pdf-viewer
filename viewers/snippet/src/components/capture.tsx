@@ -91,17 +91,17 @@ export function Capture() {
               />
             )}
           </div>
-          <div className="flex justify-end space-x-3 border-t border-gray-200 pt-4">
+          <div className="border-border-subtle flex justify-end space-x-3 border-t pt-4">
             <Button
               onClick={handleClose}
-              className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+              className="border-border-default bg-bg-surface text-fg-secondary hover:bg-interactive-hover rounded-md border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
             >
               Cancel
             </Button>
             <Button
               onClick={handleDownload}
               disabled={!captureData}
-              className="rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm text-white hover:!bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="bg-accent text-fg-on-accent hover:!bg-accent-hover flex items-center space-x-2 rounded-md border border-transparent px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
             >
               Download
             </Button>
