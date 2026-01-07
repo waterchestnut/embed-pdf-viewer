@@ -21,6 +21,7 @@ export const englishTranslations: Locale = {
       marquee: 'Marquee Zoom',
       menu: 'Zoom Menu',
       level: 'Zoom Level ({level}%)',
+      dragTip: 'Drag to select area to zoom',
     },
     pan: {
       toggle: 'Toggle Pan Mode',
@@ -30,6 +31,7 @@ export const englishTranslations: Locale = {
     },
     capture: {
       screenshot: 'Screenshot',
+      dragTip: 'Drag to select area to capture',
     },
     document: {
       menu: 'Document Menu',
@@ -219,6 +221,7 @@ export const germanTranslations: Locale = {
       marquee: 'Laufrahmen-Zoom',
       menu: 'Zoom-Menü',
       level: 'Zoomstufe ({level}%)',
+      dragTip: 'Drag to select area to zoom',
     },
     pan: {
       toggle: 'Verschieben-Modus umschalten',
@@ -228,6 +231,7 @@ export const germanTranslations: Locale = {
     },
     capture: {
       screenshot: 'Screenshot',
+      dragTip: 'Drag to select area to capture',
     },
     document: {
       menu: 'Dokument-Menü',
@@ -417,6 +421,7 @@ export const dutchTranslations: Locale = {
       marquee: 'Lijstzoom',
       menu: 'Zoommenu',
       level: 'Zoomniveau ({level}%)',
+      dragTip: 'Drag to select area to zoom',
     },
     pan: {
       toggle: 'Pan-modus wisselen',
@@ -426,6 +431,7 @@ export const dutchTranslations: Locale = {
     },
     capture: {
       screenshot: 'Schermafbeelding',
+      dragTip: 'Drag to select area to capture',
     },
     document: {
       menu: 'Documentmenu',
@@ -616,6 +622,7 @@ export const frenchTranslations: Locale = {
       marquee: 'Zoom de sélection',
       menu: 'Menu Zoom',
       level: 'Niveau de zoom ({level}%)',
+      dragTip: 'Drag to select area to zoom',
     },
     pan: {
       toggle: 'Basculer le mode déplacement',
@@ -625,6 +632,7 @@ export const frenchTranslations: Locale = {
     },
     capture: {
       screenshot: "Capture d'écran",
+      dragTip: 'Drag to select area to capture',
     },
     document: {
       menu: 'Menu Document',
@@ -814,6 +822,7 @@ export const spanishTranslations: Locale = {
       marquee: 'Zoom de selección',
       menu: 'Menú de zoom',
       level: 'Nivel de zoom ({level}%)',
+      dragTip: 'Drag to select area to zoom',
     },
     pan: {
       toggle: 'Alternar modo desplazamiento',
@@ -823,6 +832,7 @@ export const spanishTranslations: Locale = {
     },
     capture: {
       screenshot: 'Captura de pantalla',
+      dragTip: 'Drag to select area to capture',
     },
     document: {
       menu: 'Menú del documento',
@@ -1010,9 +1020,10 @@ export const simplifiedChineseTranslations: Locale = {
       out: '缩小',
       fitWidth: '适合宽度',
       fitPage: '适合页面',
-      marquee: '选框缩放',
+      marquee: '框选放大',
       menu: '缩放菜单',
       level: '缩放比例 ({level}%)',
+      dragTip: '拖动鼠标选择要放大的区域',
     },
     pan: {
       toggle: '拖动模式',
@@ -1022,6 +1033,7 @@ export const simplifiedChineseTranslations: Locale = {
     },
     capture: {
       screenshot: '截图',
+      dragTip: '拖动鼠标选择要截取的区域',
     },
     document: {
       menu: '文件选项',
