@@ -23,13 +23,14 @@
     const viewer = EmbedPDF.init({
       type: 'container',
       target: document.getElementById('pdf-viewer'),
-      //src: 'https://snippet.embedpdf.com/ebook.pdf',
+      //src: `${location.origin}${location.pathname.replace('/index.html', '')}/ebook.pdf`,
+      wasmUrl: `${location.origin}${location.pathname.replace('index.html', '')}pdfium.wasm`,
       worker: true,
       annotations: {annotationAuthor: '匿名用户'},
       documentManager: {
         maxDocuments: 5,
         initialDocuments: [{
-          url: 'https://snippet.embedpdf.com/ebook.pdf', documentId: 'pdf-test', name: '测试的文件.pdf'
+          url: `${location.origin}${location.pathname.replace('index.html', '')}ebook.pdf`, documentId: 'pdf-test', name: '测试的文件.pdf'
         }]
       },
       tabBar: 'always',
