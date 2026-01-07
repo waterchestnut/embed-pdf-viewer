@@ -3,6 +3,7 @@ import { useCaptureCapability } from '@embedpdf/plugin-capture/preact';
 import { useState, useRef, useEffect } from 'preact/hooks';
 import { Dialog } from './ui/dialog';
 import { Button } from './ui/button';
+import { useTranslations } from '@embedpdf/plugin-i18n/preact';
 
 interface CaptureData {
   pageIndex: number;
@@ -10,7 +11,11 @@ interface CaptureData {
   blob: Blob;
 }
 
-export function Capture() {
+export interface CaptureProps {
+  documentId: string;
+}
+
+export function Capture({ documentId }: CaptureProps) {
   const { provides: capture } = useCaptureCapability();
   const [open, setOpen] = useState(false);
   const [captureData, setCaptureData] = useState<CaptureData | null>(null);
@@ -18,6 +23,7 @@ export function Capture() {
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const urlRef = useRef<string | null>(null);
   const downloadLinkRef = useRef<HTMLAnchorElement>(null);
+  const { translate } = useTranslations(documentId);
 
   const handleClose = () => {
     // Clean up object URLs
@@ -73,7 +79,7 @@ export function Capture() {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose} title="Capture PDF Area">
+      <Dialog open={open} onClose={handleClose} title={translate('capture.title')}>
         <div className="space-y-6">
           <div className="flex justify-center">
             {previewUrl && (
@@ -96,14 +102,14 @@ export function Capture() {
               onClick={handleClose}
               className="border-border-default bg-bg-surface text-fg-secondary hover:bg-interactive-hover rounded-md border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Cancel
+              {translate('capture.cancel')}
             </Button>
             <Button
               onClick={handleDownload}
               disabled={!captureData}
               className="bg-accent text-fg-on-accent hover:!bg-accent-hover flex items-center space-x-2 rounded-md border border-transparent px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Download
+              {translate('capture.download')}
             </Button>
           </div>
         </div>

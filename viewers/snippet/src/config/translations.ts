@@ -32,6 +32,9 @@ export const englishTranslations: Locale = {
     capture: {
       screenshot: 'Screenshot',
       dragTip: 'Drag to select area to capture',
+      title: 'Capture PDF Area',
+      download: 'Download',
+      cancel: 'Cancel',
     },
     document: {
       menu: 'Document Menu',
@@ -232,6 +235,9 @@ export const germanTranslations: Locale = {
     capture: {
       screenshot: 'Screenshot',
       dragTip: 'Drag to select area to capture',
+      title: 'Capture PDF Area',
+      download: 'Download',
+      cancel: 'Cancel',
     },
     document: {
       menu: 'Dokument-Menü',
@@ -432,6 +438,9 @@ export const dutchTranslations: Locale = {
     capture: {
       screenshot: 'Schermafbeelding',
       dragTip: 'Drag to select area to capture',
+      title: 'Capture PDF Area',
+      download: 'Download',
+      cancel: 'Cancel',
     },
     document: {
       menu: 'Documentmenu',
@@ -633,6 +642,9 @@ export const frenchTranslations: Locale = {
     capture: {
       screenshot: "Capture d'écran",
       dragTip: 'Drag to select area to capture',
+      title: 'Capture PDF Area',
+      download: 'Download',
+      cancel: 'Cancel',
     },
     document: {
       menu: 'Menu Document',
@@ -833,6 +845,9 @@ export const spanishTranslations: Locale = {
     capture: {
       screenshot: 'Captura de pantalla',
       dragTip: 'Drag to select area to capture',
+      title: 'Capture PDF Area',
+      download: 'Download',
+      cancel: 'Cancel',
     },
     document: {
       menu: 'Menú del documento',
@@ -1034,6 +1049,9 @@ export const simplifiedChineseTranslations: Locale = {
     capture: {
       screenshot: '截图',
       dragTip: '拖动鼠标选择要截取的区域',
+      title: '截取的PDF区域',
+      download: '下载',
+      cancel: '取消',
     },
     document: {
       menu: '文件选项',

@@ -599,8 +599,8 @@ export function PDFViewer({ config, onRegistryReady }: PDFViewerProps) {
                     className="relative flex h-full w-full select-none flex-col"
                   >
                     <ViewerLayout documentId={activeDocumentId} tabBarVisibility={config.tabBar} />
-                    <Capture />
-                    <HintLayer />
+                    <Capture documentId={activeDocumentId} />
+                    <HintLayer documentId={activeDocumentId} />
                   </UIProvider>
                 ) : (
                   <EmptyState />
