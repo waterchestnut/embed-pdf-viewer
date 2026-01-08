@@ -52,7 +52,7 @@ function toFontVariants(fonts: FontFile[], baseUrl: string): FontVariant[] {
 /**
  * Build a complete font config from CDN URLs
  */
-function buildCdnFontConfig(urls: ReturnType<typeof buildCdnUrls>): FontFallbackConfig {
+export function buildCdnFontConfig(urls: ReturnType<typeof buildCdnUrls>): FontFallbackConfig {
   return {
     fonts: {
       [FontCharset.SHIFTJIS]: toFontVariants(jpFonts, urls.jp),

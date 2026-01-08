@@ -245,6 +245,9 @@ export { Rotation, ignore } from '@embedpdf/models';
 // Re-export PluginRegistry for typing
 export type { PluginRegistry } from '@embedpdf/core';
 
+// Re-export from engines
+export { FontCharset, buildCdnFontConfig } from '@embedpdf/engines';
+
 // ============================================================================
 // Theme - types and utilities
 // ============================================================================

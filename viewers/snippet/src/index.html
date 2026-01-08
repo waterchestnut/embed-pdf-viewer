@@ -19,12 +19,17 @@
 <body>
   <div id="pdf-viewer" style="height: 100dvh"></div>
   <script async type="module">
-    import EmbedPDF from './embedpdf.js';
+    import EmbedPDF, {buildCdnFontConfig} from './embedpdf.js';
+
+    let fontUrls = {};
+    ['arabic', 'hebrew', 'jp', 'kr', 'latin', 'sc', 'tc'].forEach(key => {
+      fontUrls[key] = `${location.origin}${location.pathname.replace('index.html', '')}fonts/${key}`
+    })
 
     const viewer = EmbedPDF.init({
       type: 'container',
       target: document.getElementById('pdf-viewer'),
-      log: true,
+      log: false,
       //src: `${location.origin}${location.pathname.replace('/index.html', '')}/ebook.pdf`,
       wasmUrl: `${location.origin}${location.pathname.replace('index.html', '')}pdfium.wasm`,
       worker: true,
@@ -100,6 +105,11 @@
             }
           ]
         },
+      },
+      fontFallback: {
+        fonts: {
+          ...buildCdnFontConfig(fontUrls).fonts
+        }
       },
     });
 

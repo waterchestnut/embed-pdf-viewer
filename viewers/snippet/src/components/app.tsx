@@ -137,6 +137,7 @@ import { EmptyState } from '@/components/empty-state';
 import { DocumentPasswordPrompt } from '@/components/document-password-prompt';
 import { ModeSelectButton } from './mode-select-button';
 import { Capture, CaptureExtAction } from '@/components/capture';
+import {FontFallbackConfig} from "@embedpdf/engines";
 
 // ============================================================================
 // Main Configuration Interface - Uses actual plugin config types directly
@@ -203,6 +204,8 @@ export interface PDFViewerConfig {
   i18n?: Partial<I18nPluginConfig>;
   /** UI schema options (schema, disabledCategories) */
   ui?: Partial<UIPluginConfig>;
+  /** fallback fonts */
+  fontFallback?: Partial<FontFallbackConfig>;
 
   // Viewport & Navigation
   /** Viewport options (viewportGap, scrollEndDelay) */
@@ -452,6 +455,7 @@ export function PDFViewer({ config, onRegistryReady }: PDFViewerProps) {
     ...(config.wasmUrl && { wasmUrl: config.wasmUrl }),
     worker: config.worker,
     logger: config.log ? logger : undefined,
+    fontFallback: config.fontFallback,
   });
 
   // Memoize UIProvider props to prevent unnecessary remounts
