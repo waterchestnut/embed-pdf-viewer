@@ -1,9 +1,9 @@
-import {h, Fragment} from 'preact';
-import {useCaptureCapability} from '@embedpdf/plugin-capture/preact';
-import {useState, useRef, useEffect} from 'preact/hooks';
-import {Dialog} from './ui/dialog';
-import {Button} from './ui/button';
-import {useTranslations} from '@embedpdf/plugin-i18n/preact';
+import { h, Fragment } from 'preact';
+import { useCaptureCapability } from '@embedpdf/plugin-capture/preact';
+import { useState, useRef, useEffect } from 'preact/hooks';
+import { Dialog } from './ui/dialog';
+import { Button } from './ui/button';
+import { useTranslations } from '@embedpdf/plugin-i18n/preact';
 
 export interface CaptureData {
   pageIndex: number;
@@ -23,7 +23,7 @@ export interface CaptureProps {
 }
 
 export function Capture({documentId, captureExtActions}: CaptureProps) {
-  const {provides: capture} = useCaptureCapability();
+  const { provides: capture } = useCaptureCapability();
   const [open, setOpen] = useState(false);
   const [captureData, setCaptureData] = useState<CaptureData | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -136,7 +136,7 @@ export function Capture({documentId, captureExtActions}: CaptureProps) {
       </Dialog>
 
       {/* Hidden download link */}
-      <a ref={downloadLinkRef} style={{display: 'none'}} href="" download=""/>
+      <a ref={downloadLinkRef} style={{ display: 'none' }} href="" download="" />
     </>
   );
 }
