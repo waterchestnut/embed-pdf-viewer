@@ -119,6 +119,7 @@ export interface PDFViewerConfig {
     history?: Partial<HistoryPluginConfig>;
     /** Interaction manager options (exclusionRules) */
     interactionManager?: Partial<InteractionManagerPluginConfig>;
+    /** Capture ext actions */
     captureExtActions?: CaptureExtAction[];
 }
 interface PDFViewerProps {

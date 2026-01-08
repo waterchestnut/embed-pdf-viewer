@@ -2,6 +2,7 @@ import { PdfAnnotationObject } from '@embedpdf/models';
 import { SidebarSubtype, TrackedAnnotation } from '@embedpdf/plugin-annotation';
 export interface AnnotationConfig {
     label: string;
+    labelKey: string;
     icon: string;
     iconProps: (annotation: PdfAnnotationObject) => {
         primaryColor?: string;

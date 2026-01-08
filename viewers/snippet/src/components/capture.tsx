@@ -65,8 +65,8 @@ export function Capture({documentId, captureExtActions}: CaptureProps) {
   useEffect(() => {
     if (!capture) return;
 
-    return capture.onCaptureArea(({pageIndex, rect, blob}) => {
-      setCaptureData({pageIndex, rect, blob});
+    return capture.onCaptureArea(({ pageIndex, rect, blob }) => {
+      setCaptureData({ pageIndex, rect, blob });
 
       // Create preview URL
       const objectUrl = URL.createObjectURL(blob);
