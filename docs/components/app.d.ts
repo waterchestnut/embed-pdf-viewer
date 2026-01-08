@@ -29,6 +29,7 @@ import { ThemeConfig } from '@/config/theme';
 import { IconsConfig } from '@/config/icon-registry';
 import { TabBarVisibility } from '@/components/tab-bar';
 import { CaptureExtAction } from '@/components/capture';
+import { FontFallbackConfig } from "@embedpdf/engines";
 export interface PDFViewerConfig {
     /** URL or path to the PDF document. If not provided, viewer loads with no document. */
     src?: string;
@@ -77,6 +78,8 @@ export interface PDFViewerConfig {
     i18n?: Partial<I18nPluginConfig>;
     /** UI schema options (schema, disabledCategories) */
     ui?: Partial<UIPluginConfig>;
+    /** fallback fonts */
+    fontFallback?: Partial<FontFallbackConfig>;
     /** Viewport options (viewportGap, scrollEndDelay) */
     viewport?: Partial<ViewportPluginConfig>;
     /** Scroll options (defaultStrategy, defaultPageGap, defaultBufferSize) */

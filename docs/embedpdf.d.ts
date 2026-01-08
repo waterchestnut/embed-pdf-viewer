@@ -32,6 +32,7 @@ export { RenderPlugin, type RenderPluginConfig, type RenderCapability, type Rend
 export { InteractionManagerPlugin, type InteractionManagerPluginConfig, type InteractionManagerCapability, type InteractionManagerScope, } from '@embedpdf/plugin-interaction-manager/preact';
 export { Rotation, ignore } from '@embedpdf/models';
 export type { PluginRegistry } from '@embedpdf/core';
+export { FontCharset, buildCdnFontConfig } from '@embedpdf/engines';
 export type { Theme, ThemeConfig, ThemeColors, ThemePreference, DeepPartial } from './config/theme';
 export { lightTheme, darkTheme, createTheme } from './config/theme';
 export type { IconConfig, IconsConfig, IconColor, IconPathConfig, CustomIconConfig, SimpleIconConfig, } from './config/icon-registry';
