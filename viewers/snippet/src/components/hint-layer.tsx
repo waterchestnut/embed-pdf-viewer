@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import {useInteractionManagerCapability} from '@embedpdf/plugin-interaction-manager/preact';
+import { useInteractionManagerCapability } from '@embedpdf/plugin-interaction-manager/preact';
 import { useEffect, useState } from 'preact/hooks';
 import { useTranslations } from '@embedpdf/plugin-i18n/preact';
 
