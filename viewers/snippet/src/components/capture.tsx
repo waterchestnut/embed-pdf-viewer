@@ -30,7 +30,7 @@ export function Capture({documentId, captureExtActions}: CaptureProps) {
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const urlRef = useRef<string | null>(null);
   const downloadLinkRef = useRef<HTMLAnchorElement>(null);
-  const {translate} = useTranslations(documentId);
+  const { translate } = useTranslations(documentId);
 
   const handleClose = () => {
     // Clean up object URLs
@@ -86,7 +86,12 @@ export function Capture({documentId, captureExtActions}: CaptureProps) {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose} width='48rem' title={translate('capture.title')}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        title={translate('capture.title')}
+        className="md:w-[48rem]"
+      >
         <div className="space-y-6">
           <div className="flex justify-center">
             {previewUrl && (
