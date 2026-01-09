@@ -15,10 +15,6 @@ export interface DialogProps {
     className?: string;
     /** Whether to show close button */
     showCloseButton?: boolean;
-    /** Maximum width of the dialog */
-    maxWidth?: string;
-    /** width of the dialog */
-    width?: string;
 }
-export declare function Dialog({ open, title, children, onClose, onExited, className, showCloseButton, maxWidth, width, }: DialogProps): h.JSX.Element | null;
+export declare function Dialog({ open, title, children, onClose, onExited, className, showCloseButton, }: DialogProps): h.JSX.Element | null;
 //# sourceMappingURL=dialog.d.ts.map
