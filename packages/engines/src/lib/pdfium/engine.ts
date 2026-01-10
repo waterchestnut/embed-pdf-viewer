@@ -4832,7 +4832,7 @@ export class PdfiumNative implements IPdfiumExecutor {
       fontSize: da?.fontSize ?? 12,
       fontColor: da?.fontColor ?? '#000000',
       verticalAlign,
-      backgroundColor,
+      backgroundColor: backgroundColor === da?.fontColor ? undefined : backgroundColor,
       flags,
       opacity,
       textAlign,
