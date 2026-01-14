@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact';
 import { useMemo } from 'preact/hooks';
 import styles from '../styles/index.css';
 import { EmbedPDF } from '@embedpdf/core/preact';
-import { createPluginRegistration, PluginRegistry } from '@embedpdf/core';
+import { createPluginRegistration, PluginRegistry, PermissionConfig } from '@embedpdf/core';
 import { usePdfiumEngine } from '@embedpdf/engines/preact';
 import { AllLogger, ConsoleLogger, PerfLogger, Rotation } from '@embedpdf/models';
 import {
@@ -136,6 +136,9 @@ import { TabBar, TabBarVisibility } from '@/components/tab-bar';
 import { EmptyState } from '@/components/empty-state';
 import { DocumentPasswordPrompt } from '@/components/document-password-prompt';
 import { ModeSelectButton } from './mode-select-button';
+import { ProtectModal } from './protect-modal';
+import { UnlockOwnerOverlay } from './unlock-owner-overlay';
+import { ViewPermissionsModal } from './view-permissions-modal';
 import { Capture, CaptureExtAction } from '@/components/capture';
 import {FontFallbackConfig} from "@embedpdf/engines";
 
@@ -155,6 +158,20 @@ export interface PDFViewerConfig {
   wasmUrl?: string;
   /** Enable debug logging. Default: false */
   log?: boolean;
+
+  // === Global Permissions ===
+  /**
+   * Global permission configuration applied to all documents.
+   * Per-document permissions (in documentManager.initialDocuments) can override these.
+   *
+   * @example
+   * // Disable printing globally
+   * permissions: { overrides: { print: false } }
+   *
+   * // Ignore PDF permissions entirely (allow all by default)
+   * permissions: { enforceDocumentPermissions: false }
+   */
+  permissions?: PermissionConfig;
 
   // === Appearance ===
   /** Theme configuration */
@@ -468,8 +485,11 @@ export function PDFViewer({ config, onRegistryReady }: PDFViewerProps) {
       'outline-sidebar': OutlineSidebar,
       'comment-sidebar': CommentSidebar,
       'print-modal': PrintModal,
+      'protect-modal': ProtectModal,
+      'unlock-owner-overlay': UnlockOwnerOverlay,
       'page-controls': PageControls,
       'mode-select-button': ModeSelectButton,
+      'view-permissions-modal': ViewPermissionsModal,
     }),
     [],
   );
@@ -500,7 +520,10 @@ export function PDFViewer({ config, onRegistryReady }: PDFViewerProps) {
     <>
       <style>{styles}</style>
       <EmbedPDF
-        logger={config.log ? logger : undefined}
+        config={{
+          logger: config.log ? logger : undefined,
+          permissions: config.permissions,
+        }}
         onInitialized={async (registry) => {
           // Call the callback if provided
           if (onRegistryReady && registry) {
