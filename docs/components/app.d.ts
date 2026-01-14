@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { PluginRegistry } from '@embedpdf/core';
+import { PluginRegistry, PermissionConfig } from '@embedpdf/core';
 import { ViewportPluginConfig } from '@embedpdf/plugin-viewport/preact';
 import { ScrollPluginConfig } from '@embedpdf/plugin-scroll/preact';
 import { SpreadPluginConfig } from '@embedpdf/plugin-spread/preact';
@@ -39,6 +39,18 @@ export interface PDFViewerConfig {
     wasmUrl?: string;
     /** Enable debug logging. Default: false */
     log?: boolean;
+    /**
+     * Global permission configuration applied to all documents.
+     * Per-document permissions (in documentManager.initialDocuments) can override these.
+     *
+     * @example
+     * // Disable printing globally
+     * permissions: { overrides: { print: false } }
+     *
+     * // Ignore PDF permissions entirely (allow all by default)
+     * permissions: { enforceDocumentPermissions: false }
+     */
+    permissions?: PermissionConfig;
     /** Theme configuration */
     theme?: ThemeConfig;
     /** Custom icons */

@@ -8,7 +8,8 @@ interface AnnotationCardProps {
     onDelete: (annotation: TrackedAnnotation) => void;
     onReply: (inReplyToId: string, contents: string) => void;
     documentId: string;
+    isReadOnly?: boolean;
 }
-export declare const AnnotationCard: ({ entry, isSelected, onSelect, onUpdate, onDelete, onReply, documentId, }: AnnotationCardProps) => h.JSX.Element | null;
+export declare const AnnotationCard: ({ entry, isSelected, onSelect, onUpdate, onDelete, onReply, documentId, isReadOnly, }: AnnotationCardProps) => h.JSX.Element | null;
 export {};
 //# sourceMappingURL=annotation-card.d.ts.map

@@ -6,7 +6,8 @@ interface CommentProps {
     onDelete: () => void;
     isReply?: boolean;
     documentId: string;
+    isReadOnly?: boolean;
 }
-export declare const Comment: ({ annotation, onSave, onDelete, isReply, documentId, }: CommentProps) => h.JSX.Element;
+export declare const Comment: ({ annotation, onSave, onDelete, isReply, documentId, isReadOnly, }: CommentProps) => h.JSX.Element;
 export {};
 //# sourceMappingURL=comment.d.ts.map

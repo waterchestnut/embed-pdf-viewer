@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact';
+import { FunctionComponent, CSSProperties } from 'preact';
 export type IconProps = {
     size?: number;
     strokeWidth?: number;
@@ -6,6 +6,7 @@ export type IconProps = {
     secondaryColor?: string;
     className?: string;
     title?: string;
+    style?: CSSProperties;
 };
 export type IconComponent = FunctionComponent<IconProps>;
 //# sourceMappingURL=types.d.ts.map
