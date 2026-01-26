@@ -330,7 +330,7 @@ function FontFamilySection({ config, value, onChange, translate }: PropertySecti
       </div>
       <div class="flex gap-2">
         <ToggleButton
-          title="Bold"
+          title={translate('annotation.fontBold')}
           active={bold}
           disabled={
             !standardFontIsBold(makeStandardFont(fontFamily, { bold: true, italic: false }))
@@ -341,7 +341,7 @@ function FontFamilySection({ config, value, onChange, translate }: PropertySecti
           <Icon icon="bold" size={18} />
         </ToggleButton>
         <ToggleButton
-          title="Italic"
+          title={translate('annotation.fontItalic')}
           active={italic}
           disabled={
             !standardFontIsItalic(makeStandardFont(fontFamily, { bold: false, italic: true }))
@@ -424,21 +424,21 @@ function TextAlignSection({ config, value, onChange, translate }: PropertySectio
       <SectionLabel>{translate(config.labelKey)}</SectionLabel>
       <div class="flex gap-2">
         <ToggleButton
-          title="Align left"
+          title={translate('annotation.textAlignLeft')}
           active={textAlign === PdfTextAlignment.Left}
           onClick={() => handleChange(PdfTextAlignment.Left)}
         >
           <Icon icon="alignLeft" size={18} />
         </ToggleButton>
         <ToggleButton
-          title="Align center"
+          title={translate('annotation.textAlignCenter')}
           active={textAlign === PdfTextAlignment.Center}
           onClick={() => handleChange(PdfTextAlignment.Center)}
         >
           <Icon icon="alignCenter" size={18} />
         </ToggleButton>
         <ToggleButton
-          title="Align right"
+          title={translate('annotation.textAlignRight')}
           active={textAlign === PdfTextAlignment.Right}
           onClick={() => handleChange(PdfTextAlignment.Right)}
         >
@@ -468,21 +468,21 @@ function VerticalAlignSection({ config, value, onChange, translate }: PropertySe
       <SectionLabel>{translate(config.labelKey)}</SectionLabel>
       <div class="flex gap-2">
         <ToggleButton
-          title="Align top"
+          title={translate('annotation.verticalAlignTop')}
           active={verticalAlign === PdfVerticalAlignment.Top}
           onClick={() => handleChange(PdfVerticalAlignment.Top)}
         >
           <Icon icon="alignTop" size={18} />
         </ToggleButton>
         <ToggleButton
-          title="Align middle"
+          title={translate('annotation.verticalAlignMiddle')}
           active={verticalAlign === PdfVerticalAlignment.Middle}
           onClick={() => handleChange(PdfVerticalAlignment.Middle)}
         >
           <Icon icon="alignMiddle" size={18} />
         </ToggleButton>
         <ToggleButton
-          title="Align bottom"
+          title={translate('annotation.verticalAlignBottom')}
           active={verticalAlign === PdfVerticalAlignment.Bottom}
           onClick={() => handleChange(PdfVerticalAlignment.Bottom)}
         >
