@@ -1794,9 +1794,6 @@ export const simplifiedChineseTranslations: Locale = {
       style: '批注样式',
       styles: '当前{type}的属性',
       defaults: '{type}的默认属性',
-      style: '批注样式',
-      styles: '{type} 样式',
-      defaults: '{type} 默认值',
       // Sidebar labels
       color: '颜色',
       opacity: '不透明度',
