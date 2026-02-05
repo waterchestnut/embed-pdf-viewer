@@ -6,9 +6,11 @@ export interface PropertyConfig {
     /** The property key on the annotation object */
     key: string;
     /** The type of UI control to render */
-    type: 'color' | 'colorWithTransparent' | 'opacity' | 'slider' | 'strokeStyle' | 'lineEndings' | 'fontFamily' | 'fontSize' | 'fontColor' | 'textAlign' | 'verticalAlign' | 'blendMode';
+    type: 'color' | 'colorWithTransparent' | 'opacity' | 'slider' | 'strokeStyle' | 'lineEndings' | 'fontFamily' | 'fontSize' | 'fontColor' | 'textAlign' | 'verticalAlign' | 'blendMode' | 'text';
     /** Translation key for the label */
     labelKey: string;
+    /** Translation key for the placeholder (optional, for text inputs) */
+    placeholderKey?: string;
     /** Minimum value for sliders */
     min?: number;
     /** Maximum value for sliders */
