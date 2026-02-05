@@ -1,5 +1,13 @@
 # @embedpdf/plugin-commands
 
+## 2.4.1
+
+## 2.4.0
+
+### Minor Changes
+
+- [#426](https://github.com/embedpdf/embed-pdf-viewer/pull/426) by [@bobsingor](https://github.com/bobsingor) – Added `logger` to command action context, enabling commands to log debug information through the plugin's logger instance.
+
 ## 2.3.0
 
 ### Minor Changes
