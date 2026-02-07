@@ -283,6 +283,7 @@ export class DocumentManagerPlugin extends BasePlugin<
       password: options.password,
       mode: options.mode,
       requestOptions: options.requestOptions,
+      normalizeRotation: true,
     });
 
     task.resolve({
@@ -338,6 +339,7 @@ export class DocumentManagerPlugin extends BasePlugin<
     };
     const engineTask = this.engine.openDocumentBuffer(file, {
       password: options.password,
+      normalizeRotation: true,
     });
 
     task.resolve({
@@ -720,6 +722,7 @@ export class DocumentManagerPlugin extends BasePlugin<
 
     return this.engine.openDocumentBuffer(file, {
       password: options.password,
+      normalizeRotation: true,
     });
   }
 
