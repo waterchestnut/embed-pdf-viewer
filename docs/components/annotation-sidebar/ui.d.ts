@@ -49,10 +49,12 @@ export declare const ColorSwatch: ({ color, active, onSelect, }: {
 type StrokeItem = {
     id: PdfAnnotationBorderStyle;
     dash?: number[];
+    cloudyIntensity?: number;
 };
-export declare const StrokeStyleSelect: (props: {
+export declare const StrokeStyleSelect: ({ value, onChange, showCloudy, }: {
     value: StrokeItem;
     onChange: (s: StrokeItem) => void;
+    showCloudy?: boolean;
 }) => h.JSX.Element;
 export declare const LineEndingSelect: ({ position, ...props }: {
     value: PdfAnnotationLineEnding;
@@ -62,6 +64,14 @@ export declare const LineEndingSelect: ({ position, ...props }: {
 export declare const FontFamilySelect: (props: {
     value: PdfStandardFontFamily;
     onChange: (fam: PdfStandardFontFamily) => void;
+}) => h.JSX.Element;
+/**
+ * Compact rotation control with a numeric input and -90°/+90° quick-rotate buttons.
+ * Values wrap around (e.g. 350 + 90 = 80, 10 - 90 = 280).
+ */
+export declare const RotationInput: ({ value, onChange, }: {
+    value: number;
+    onChange: (degrees: number) => void;
 }) => h.JSX.Element;
 export declare const FontSizeInputSelect: ({ value, onChange, options, }: {
     value: number;

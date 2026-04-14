@@ -11,9 +11,10 @@ export { ZoomPlugin, ZoomMode, type ZoomPluginConfig, type ZoomCapability, type 
 export { RotatePlugin, type RotatePluginConfig, type RotateCapability, type RotateScope, } from '@embedpdf/plugin-rotate/preact';
 export { TilingPlugin, type TilingPluginConfig, type TilingCapability, type TilingScope, } from '@embedpdf/plugin-tiling/preact';
 export { ThumbnailPlugin, type ThumbnailPluginConfig, type ThumbnailCapability, type ThumbnailScope, } from '@embedpdf/plugin-thumbnail/preact';
-export { AnnotationPlugin, type AnnotationPluginConfig, type AnnotationCapability, type AnnotationScope, type AnnotationEvent, } from '@embedpdf/plugin-annotation/preact';
+export { AnnotationPlugin, type AnnotationPluginConfig, type AnnotationCapability, type AnnotationScope, type AnnotationEvent, type AnnotationTool, type AnnotationTransferItem, type ExportAnnotationsOptions, type GetAnnotationsOptions, type TrackedAnnotation, } from '@embedpdf/plugin-annotation/preact';
 export { SearchPlugin, type SearchPluginConfig, type SearchCapability, type SearchScope, } from '@embedpdf/plugin-search/preact';
 export { SelectionPlugin, type SelectionPluginConfig, type SelectionCapability, type SelectionScope, } from '@embedpdf/plugin-selection/preact';
+export { FormPlugin, type FormPluginConfig, type FormCapability, type FormScope, type FormFieldInfo, type FormReadyEvent, type FieldValueChangeEvent, } from '@embedpdf/plugin-form/preact';
 export { CapturePlugin, type CapturePluginConfig, type CaptureCapability, type CaptureScope, } from '@embedpdf/plugin-capture/preact';
 export { RedactionPlugin, RedactionMode, type RedactionPluginConfig, type RedactionCapability, type RedactionScope, type RedactionItem, } from '@embedpdf/plugin-redaction/preact';
 export { UIPlugin, type UIPluginConfig, type UICapability, type UIScope, } from '@embedpdf/plugin-ui/preact';
@@ -30,7 +31,8 @@ export { HistoryPlugin, type HistoryPluginConfig, type HistoryCapability, type H
 export { AttachmentPlugin, type AttachmentPluginConfig, type AttachmentCapability, type AttachmentScope, } from '@embedpdf/plugin-attachment/preact';
 export { RenderPlugin, type RenderPluginConfig, type RenderCapability, type RenderScope, } from '@embedpdf/plugin-render/preact';
 export { InteractionManagerPlugin, type InteractionManagerPluginConfig, type InteractionManagerCapability, type InteractionManagerScope, } from '@embedpdf/plugin-interaction-manager/preact';
-export { Rotation, ignore } from '@embedpdf/models';
+export { SignaturePlugin, SignatureMode, type SignaturePluginConfig, type SignatureCapability, type SignatureEntry, type SignatureFieldDefinition, type SignatureFieldKind, serializeEntries, deserializeEntries, type SerializedSignatureEntry, } from '@embedpdf/plugin-signature/preact';
+export { Rotation, ignore, PdfAnnotationSubtype, type PdfStampAnnoObject } from '@embedpdf/models';
 export type { PluginRegistry } from '@embedpdf/core';
 export { FontCharset, buildCdnFontConfig } from '@embedpdf/engines';
 export type { Theme, ThemeConfig, ThemeColors, ThemePreference, DeepPartial } from './config/theme';

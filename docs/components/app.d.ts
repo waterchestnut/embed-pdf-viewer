@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { PluginRegistry, PermissionConfig } from '@embedpdf/core';
+import type { FontFallbackConfig } from '@embedpdf/engines';
 import { ViewportPluginConfig } from '@embedpdf/plugin-viewport/preact';
 import { ScrollPluginConfig } from '@embedpdf/plugin-scroll/preact';
 import { SpreadPluginConfig } from '@embedpdf/plugin-spread/preact';
@@ -25,11 +26,13 @@ import { CapturePluginConfig } from '@embedpdf/plugin-capture/preact';
 import { HistoryPluginConfig } from '@embedpdf/plugin-history/preact';
 import { RedactionPluginConfig } from '@embedpdf/plugin-redaction/preact';
 import { AttachmentPluginConfig } from '@embedpdf/plugin-attachment/preact';
+import { FormPluginConfig } from '@embedpdf/plugin-form/preact';
+import { StampPluginConfig } from '@embedpdf/plugin-stamp/preact';
+import { SignaturePluginConfig } from '@embedpdf/plugin-signature/preact';
 import { ThemeConfig } from '@/config/theme';
 import { IconsConfig } from '@/config/icon-registry';
 import { TabBarVisibility } from '@/components/tab-bar';
 import { CaptureExtAction } from '@/components/capture';
-import { FontFallbackConfig } from "@embedpdf/engines";
 export interface PDFViewerConfig {
     /** URL or path to the PDF document. If not provided, viewer loads with no document. */
     src?: string;
@@ -39,6 +42,8 @@ export interface PDFViewerConfig {
     wasmUrl?: string;
     /** Enable debug logging. Default: false */
     log?: boolean;
+    /** Font fallback configuration. Defaults to CDN fonts from jsDelivr. */
+    fontFallback?: FontFallbackConfig;
     /**
      * Global permission configuration applied to all documents.
      * Per-document permissions (in documentManager.initialDocuments) can override these.
@@ -90,6 +95,8 @@ export interface PDFViewerConfig {
     i18n?: Partial<I18nPluginConfig>;
     /** UI schema options (schema, disabledCategories) */
     ui?: Partial<UIPluginConfig>;
+    /** Form options (withForms, withAnnotations) */
+    form?: Partial<FormPluginConfig>;
     /** fallback fonts */
     fontFallback?: Partial<FontFallbackConfig>;
     /** Viewport options (viewportGap, scrollEndDelay) */
@@ -130,6 +137,10 @@ export interface PDFViewerConfig {
     export?: Partial<ExportPluginConfig>;
     /** Fullscreen options (targetElement) */
     fullscreen?: Partial<FullscreenPluginConfig>;
+    /** Stamp options (libraries) */
+    stamp?: Partial<StampPluginConfig>;
+    /** Signature options (mode, default size) */
+    signature?: Partial<SignaturePluginConfig>;
     /** History/undo options */
     history?: Partial<HistoryPluginConfig>;
     /** Interaction manager options (exclusionRules) */
