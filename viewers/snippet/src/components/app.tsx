@@ -144,6 +144,7 @@ import {
   frenchTranslations,
   spanishTranslations,
   simplifiedChineseTranslations,
+  traditionalChineseTranslations,
   japaneseTranslations,
   swedishTranslations,
 } from '@/config';
@@ -324,6 +325,7 @@ const DEFAULTS = {
       frenchTranslations,
       spanishTranslations,
       simplifiedChineseTranslations,
+      traditionalChineseTranslations,
       japaneseTranslations,
       swedishTranslations,
     ],
