@@ -137,16 +137,16 @@ export function saveAnnotationsCommand(
 ): CommandDefinition {
   return {
     id,
-    label: 'Save annotations',
-    labelKey: 'custom:commands.saveAnnotations',
+    label: '保存批注',
     icon: 'save',
     run: async (ctx) => {
       if (!ctx.documentId) return;
       const documents = ctx.tryGet(DocumentsToken);
       if (!documents) return;
       const buffer = await documents.download(ctx.documentId);
-      const name = documents.get(ctx.documentId)?.name ?? 'document';
-      await onSave(buffer, `${name}.pdf`);
+      const raw = documents.get(ctx.documentId)?.name ?? 'document';
+      const name = /\.pdf$/i.test(raw) ? raw : `${raw}.pdf`;
+      await onSave(buffer, name);
     },
   };
 }
