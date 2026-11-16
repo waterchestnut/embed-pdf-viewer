@@ -1,0 +1,49 @@
+{
+  "name": "embedpdf-snippet-i18n",
+  "version": "3.2.0-1",
+  "private": false,
+  "description": "The EmbedPDF viewer snippet for the xxzx consoles: the official @embedpdf/viewer with Simplified-Chinese wording overrides, host-facing file events, selection/snapshot action helpers and self-hosted CJK fonts.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "epdf-build",
+    "clean": "rimraf dist",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@embedpdf/viewer": "workspace:*"
+  },
+  "devDependencies": {
+    "@embedpdf/tooling-build": "workspace:*",
+    "typescript": "^5.0.0"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waterchestnut/embed-pdf-viewer.git",
+    "directory": "packages/snippet-i18n"
+  }
+}

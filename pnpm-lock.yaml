@@ -2715,6 +2715,19 @@ importers:
         specifier: ^2.1.9
         version: 2.1.9(@types/node@22.19.11)(happy-dom@20.11.0)(less@4.6.7)(lightningcss@1.30.2)(msw@2.11.2(@types/node@22.19.11)(typescript@5.9.3))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)
 
+  packages/snippet-i18n:
+    dependencies:
+      '@embedpdf/viewer':
+        specifier: workspace:*
+        version: link:../viewer/main
+    devDependencies:
+      '@embedpdf/tooling-build':
+        specifier: workspace:*
+        version: link:../../tooling/build
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+
   packages/viewer/angular:
     dependencies:
       '@angular/forms':
@@ -11191,6 +11204,7 @@ packages:
   image-size@0.5.5:
     resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
     engines: {node: '>=0.10.0'}
+    deprecated: Please migrate to image-size@2.x
     hasBin: true
 
   immutable@5.1.4:
