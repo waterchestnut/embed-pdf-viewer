@@ -51,6 +51,7 @@ export * from '@embedpdf/viewer/snippet';
 export { default as EmbedPDF } from '@embedpdf/viewer/snippet';
 export * from './actions';
 export * from './fonts';
+export * from './icons';
 export { fileOpenEventCommand } from './open-file';
 
 /** The engine options, with this layer's own defaults documented on `init`. */
