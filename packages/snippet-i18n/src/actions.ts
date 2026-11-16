@@ -63,6 +63,14 @@ type Snapshot = NonNullable<ReturnType<ViewerPlugins['render']['getSnapshot']>>;
 /** The picture of a snapshot: a PNG, as the render plugin hands it over. */
 export type SnapshotImage = Awaited<Snapshot['image']>;
 
+/** What a snapshot action receives — the v2 `CaptureData` in 3.x clothes. */
+export interface SnapshotData {
+  /** Zero-based, exactly like v2: the filename convention stays `pageIndex + 1`. */
+  readonly pageIndex: number;
+  /** The PNG blob, already read: `formData.append('file', blob, …)` as before. */
+  readonly blob: Blob;
+}
+
 /** One button under the snapshot box that receives its picture. */
 export interface SnapshotAction {
   readonly id: string;
@@ -70,17 +78,15 @@ export interface SnapshotAction {
   readonly labelKey?: string;
   readonly icon?: string;
   /**
-   * Called with the snapshot's image. Rejecting `operation-cancelled` — the
-   * box was let go while the picture was being made — is swallowed, like the
-   * built-in copy/save drop it too.
+   * Called with the snapshot's picture. A box let go while the picture was
+   * being made calls nothing, like the built-in copy/save drop it too.
    */
-  readonly onSnapshot: (image: SnapshotImage, documentId: string) => void | Promise<void>;
+  readonly onSnapshot: (data: SnapshotData, documentId: string) => void | Promise<void>;
 }
 
 /**
  * The v2 `captureExtActions`: buttons on the snapshot strip (feature
- * `snapshots` on) that receive the marquee's picture. `image.blob` is the PNG
- * blob, what the fork's capture dialog passed to `onClick(captureData)`.
+ * `snapshots` on) that receive the marquee's picture.
  */
 export function snapshotActions(
   actions: readonly SnapshotAction[],
@@ -100,7 +106,14 @@ export function snapshotActions(
       } catch {
         return; // the snapshot was let go first: nothing to act on
       }
-      await action.onSnapshot(image, ctx.documentId ?? '');
+      // The display index, the way the chrome names a snapshot's own file.
+      const documents = ctx.tryGet(DocumentsToken);
+      const pageIndex =
+        documents
+          ?.listPages(ctx.documentId ?? undefined)
+          .findIndex((info) => info.ref.objectNumber === snapshot.page.objectNumber) ?? -1;
+      const data: SnapshotData = { pageIndex, blob: await image.blob() };
+      await action.onSnapshot(data, ctx.documentId ?? '');
     },
   }));
   const layout: LayoutFunction = (base) =>

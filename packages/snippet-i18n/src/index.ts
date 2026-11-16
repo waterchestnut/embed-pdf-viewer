@@ -32,10 +32,12 @@
  * ```
  */
 import EmbedPDF, {
+  createLayout,
   type CommandDefinition,
   type Features,
   type InitOptions,
   type LanguageStrings,
+  type LayoutData,
   type LayoutFunction,
   type Layout,
   type LocalEngineConfig,
@@ -135,7 +137,16 @@ export function init(config: SnippetConfig): SnippetHandle {
  * passes: `composeLayout(selection.layout, (base) => base.tabs('never'))`.
  */
 export function composeLayout(...fns: readonly LayoutFunction[]): LayoutFunction {
-  return (base, env) => fns.reduce<Layout>((l, fn) => fn(l, env), base);
+  return (base, env) => {
+    let layout: Layout = base;
+    for (const fn of fns) {
+      const given = fn(layout, env);
+      // A function may answer with plain data: take it back as a layout.
+      layout =
+        typeof (given as Layout).add === 'function' ? (given as Layout) : createLayout(given as LayoutData);
+    }
+    return layout;
+  };
 }
 
 // ── internals ───────────────────────────────────────────────────────────────
