@@ -81,7 +81,12 @@ const run = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'epdf-publish
 
 // ── 1. pack ─────────────────────────────────────────────────────────────────
 
-execFileSync('pnpm', ['pack', '--pack-destination', run], {
+// Windows: CreateProcess won't resolve the extension-less `pnpm` shim, so run the pnpm CLI through
+// Node itself when invoked from a pnpm script (`npm_execpath`); elsewhere spawn `pnpm` directly.
+const pnpmPack = process.env.npm_execpath
+  ? [process.execPath, [process.env.npm_execpath, 'pack', '--pack-destination', run]]
+  : ['pnpm', ['pack', '--pack-destination', run]];
+execFileSync(pnpmPack[0], pnpmPack[1], {
   cwd: packageDir,
   stdio: ['ignore', 'ignore', 'pipe'],
 });
@@ -201,7 +206,12 @@ for (const [kind, places] of problems) {
 const link = (name) => {
   const at = path.join(app, 'node_modules', name);
   fs.mkdirSync(path.dirname(at), { recursive: true });
-  fs.symlinkSync(fs.realpathSync(path.join(packageDir, 'node_modules', name)), at);
+  // Directory symlinks need elevation on Windows; a junction is the same thing for our purposes.
+  fs.symlinkSync(
+    fs.realpathSync(path.join(packageDir, 'node_modules', name)),
+    at,
+    process.platform === 'win32' ? 'junction' : 'dir',
+  );
 };
 for (const name of Object.keys({ ...packed.dependencies, ...packed.peerDependencies })) link(name);
 if (manifest.devDependencies?.['@embedpdf/engine']) link('@embedpdf/engine');

@@ -136,7 +136,8 @@ if (process.argv.includes('--check')) {
     }
   }
   for (const absolute of generatedFilesOnDisk(contentRoot)) {
-    const path = relative(contentRoot, absolute);
+    // `relative` yields backslashes on Windows; the expected map keys are slash-separated.
+    const path = relative(contentRoot, absolute).replace(/\\/g, '/');
     if (!expected.has(path)) stale.push(path);
   }
   if (stale.length) {
@@ -151,7 +152,7 @@ if (process.argv.includes('--check')) {
 }
 
 for (const absolute of generatedFilesOnDisk(contentRoot)) {
-  const path = relative(contentRoot, absolute);
+  const path = relative(contentRoot, absolute).replace(/\\/g, '/');
   if (!expected.has(path)) unlinkSync(absolute);
 }
 for (const [path, contents] of expected) {

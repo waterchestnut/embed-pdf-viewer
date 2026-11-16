@@ -42,6 +42,9 @@ for (const entry of entries) {
 // The app's side: a file in this package that imports every entry point by its public name,
 // resolved through `exports` as an app resolves it. Never written to disk.
 const consumer = join(packageDir, 'declarations-check.ts');
+// TypeScript hands the host slash-separated paths on every platform; `join` doesn't on Windows.
+const consumerName = consumer.replace(/\\/g, '/');
+const asConsumer = (file) => file.replace(/\\/g, '/') === consumerName;
 const consumerText = entries
   .map((entry, index) => `export * as entry${index} from '${entry.name}';`)
   .join('\n');
@@ -60,10 +63,10 @@ const host = ts.createCompilerHost(options);
 const readFile = host.readFile.bind(host);
 const fileExists = host.fileExists.bind(host);
 const getSourceFile = host.getSourceFile.bind(host);
-host.readFile = (file) => (file === consumer ? consumerText : readFile(file));
-host.fileExists = (file) => file === consumer || fileExists(file);
+host.readFile = (file) => (asConsumer(file) ? consumerText : readFile(file));
+host.fileExists = (file) => asConsumer(file) || fileExists(file);
 host.getSourceFile = (file, languageVersion, ...rest) =>
-  file === consumer
+  asConsumer(file)
     ? ts.createSourceFile(file, consumerText, languageVersion, true)
     : getSourceFile(file, languageVersion, ...rest);
 // Each import resolves on its own, without the cache that shares one folder's answer with the
@@ -78,7 +81,7 @@ const diagnostics = [
   ...program.getGlobalDiagnostics(),
   ...program
     .getSourceFiles()
-    .filter((file) => file.fileName === consumer || insideDist(file))
+    .filter((file) => asConsumer(file.fileName) || insideDist(file))
     .flatMap((file) => [
       ...program.getSyntacticDiagnostics(file),
       ...program.getSemanticDiagnostics(file),
