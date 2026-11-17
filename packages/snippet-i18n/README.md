@@ -118,6 +118,9 @@ handle.destroy();    // 卸载
    # 验证：302/200 = 就绪（302 是跳 CDN，不是失败）；404 = 仍在队列，稍后再查
    curl.exe -s -o NUL -w "%{http_code}" https://registry.npmmirror.com/embedpdf-snippet-i18n/-/embedpdf-snippet-i18n-<版本>.tgz
    ```
+   时序坑：npm 发布后有几分钟 processing 窗口，**在窗口内触发的镜像同步只会同步到旧快照**
+   （拿到 `ok:true` 也不代表含新版本）。务必先确认 npmjs 的 tarball 已 200，再触发同步，
+   最后用上面的验证命令确认镜像真的拿到了新版本。
 6. **消费方**：三个调用方升到 `^<新版本>`（`pnpm install` + tsc + 部署）；Pages 站点
    需要重建时，`examples/snippet-i18n` 构建后铺进 `3.x` 分支 `docs/` 并 force push。
    注意：调用方 `engine.wasmUrl` 的 `?v=` 参数反映 **wasm 文件本身的版本**（当前 `3.3.0`，
