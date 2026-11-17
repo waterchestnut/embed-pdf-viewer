@@ -120,3 +120,6 @@ handle.destroy();    // 卸载
    ```
 6. **消费方**：三个调用方升到 `^<新版本>`（`pnpm install` + tsc + 部署）；Pages 站点
    需要重建时，`examples/snippet-i18n` 构建后铺进 `3.x` 分支 `docs/` 并 force push。
+   注意：调用方 `engine.wasmUrl` 的 `?v=` 参数反映 **wasm 文件本身的版本**（当前 `3.3.0`，
+   即上游 viewer/engine 版本）——只有往 `pdfviewer` 宿主重新部署了新的 `embedpdf.wasm`
+   才需要改它，本包的 `-N` 迭代不要跟着动。
