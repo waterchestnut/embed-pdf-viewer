@@ -151,3 +151,44 @@ export function legacyIcon(icon: LegacyIcon): IconDef {
   const strokeOnly = icon.paths.some((path) => path.stroke && !path.fill);
   return { paths, fill: !strokeOnly };
 }
+
+/**
+ * The fork's own button icons, drawn the way the chrome draws its set:
+ * stroked outlines on the 24 grid (Tabler/Lucide geometry), so they sit in
+ * the strip and on the toolbar like they belong there. v2 shipped filled
+ * 1024-grid glyphs for these, which scale down to smudges.
+ *
+ * `custom_ai` sparkle (AI 解读), `custom_trans` languages (翻译),
+ * `custom_back` arrow-left (返回). Pass as the `icons` config and name them
+ * from your commands.
+ */
+export const FORK_ICONS: Readonly<Record<string, IconDef>> = {
+  custom_ai: {
+    paths: [
+      { d: 'M12 3l1.9 5.7a2 2 0 0 0 1.3 1.3l5.8 1.9l-5.8 1.9a2 2 0 0 0-1.3 1.3l-1.9 5.8l-1.9-5.8a2 2 0 0 0-1.3-1.3l-5.8-1.9l5.8-1.9a2 2 0 0 0 1.3-1.3z' },
+      { d: 'M5 3v4' },
+      { d: 'M3 5h4' },
+      { d: 'M19 17v4' },
+      { d: 'M17 19h4' },
+    ],
+    fill: false,
+  },
+  custom_trans: {
+    paths: [
+      { d: 'm5 8l6 6' },
+      { d: 'm4 14l6-6l2-3' },
+      { d: 'M2 5h12' },
+      { d: 'M7 2h1' },
+      { d: 'm22 22l-5-10l-5 10' },
+      { d: 'M14 18h4' },
+    ],
+    fill: false,
+  },
+  custom_back: {
+    paths: [
+      { d: 'M5 12h14' },
+      { d: 'm8 9l-3 3l3 3' },
+    ],
+    fill: false,
+  },
+};
