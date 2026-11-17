@@ -159,8 +159,8 @@ export function legacyIcon(icon: LegacyIcon): IconDef {
  * 1024-grid glyphs for these, which scale down to smudges.
  *
  * `custom_ai` sparkle (AI 解读), `custom_trans` languages (翻译),
- * `custom_back` arrow-left (返回). Pass as the `icons` config and name them
- * from your commands.
+ * `custom_back` arrow-left (返回), `custom_quote` double commas (引用).
+ * Pass as the `icons` config and name them from your commands.
  */
 export const FORK_ICONS: Readonly<Record<string, IconDef>> = {
   custom_ai: {
@@ -188,6 +188,14 @@ export const FORK_ICONS: Readonly<Record<string, IconDef>> = {
     paths: [
       { d: 'M5 12h14' },
       { d: 'm8 9l-3 3l3 3' },
+    ],
+    fill: false,
+  },
+  custom_quote: {
+    paths: [
+      // 一对逗号形引号 ❝：圆头 + 下拖尾，16px 下仍读得出“引用”。
+      { d: 'M10 10.5A2.5 2.5 0 1 0 7.5 13c0 2.5-1 4-3 5' },
+      { d: 'M18 10.5A2.5 2.5 0 1 0 15.5 13c0 2.5-1 4-3 5' },
     ],
     fill: false,
   },
