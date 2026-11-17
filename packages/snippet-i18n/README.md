@@ -82,4 +82,4 @@ handle.destroy();    // 卸载
 
 本包在 fork 分支 `feature/v3-snippet` 上维护，位于 `packages/snippet-i18n`，
 随 workspace 一起构建（`pnpm --filter embedpdf-snippet-i18n build`）。
-发布版本号 = 上游 viewer 版本 + `-N` 后缀（如 `3.2.0-1`）。
+发布版本号 = 上游 viewer 版本 + `-N` 后缀（如 `3.3.0-1`）。
