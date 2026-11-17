@@ -9,7 +9,13 @@ import {
   snapshotActions,
 } from 'embedpdf-snippet-i18n';
 
+const params = new URLSearchParams(window.location.search);
+const DEBUG = params.has('debug');
+if (DEBUG) document.body.dataset.debug = '';
+
 const log = (text: string): void => {
+  console.log(text);
+  if (!DEBUG) return;
   const el = document.getElementById('log');
   if (el) el.textContent = `${text}\n${el.textContent ?? ''}`.slice(0, 1000);
 };
