@@ -1,6 +1,6 @@
 {
   "name": "embedpdf-snippet-i18n",
-  "version": "3.3.0-5",
+  "version": "3.3.0-6",
   "private": false,
   "description": "The EmbedPDF viewer snippet for the xxzx consoles: the official @embedpdf/viewer with Simplified-Chinese wording overrides, host-facing file events, selection/snapshot action helpers and self-hosted CJK fonts.",
   "type": "module",

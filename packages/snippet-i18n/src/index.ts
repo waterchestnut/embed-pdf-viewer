@@ -113,9 +113,11 @@ export function init(config: SnippetConfig): SnippetHandle {
     ...rest,
     locale,
     // Bundlers of the console apps never copy the door's worker files to a
-    // known URL; `'inline'` starts the worker from the bundled bytes, and the
-    // page's own `wasmUrl` (like v2's) locates the wasm.
-    engine: { worker: 'inline', ...engine },
+    // known URL, and under a sandbox like wujie those URLs become
+    // cross-origin `new Worker` failures; `'inline'` starts both workers from
+    // the bundled bytes (blob:), the way the portable door does. The page's
+    // own `wasmUrl` (like v2's) still locates the wasm.
+    engine: { worker: 'inline', encoderWorker: 'inline', ...engine },
     // v2 shipped the capture dialog and every mode tab; 3.x gates
     // `snapshots`, `measurement`, `redaction` and `forms.building` (the form
     // designer, and with it the 表单 mode tab) off by default, so the fork
