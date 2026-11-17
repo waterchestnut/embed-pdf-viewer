@@ -1,9 +1,0 @@
-<script lang="ts">
-  import { PDFViewer, type Viewer } from '@embedpdf/viewer-svelte';
-
-  function onready(viewer: Viewer) {
-    viewer.documents.onOpened(() => viewer.get('search').search({ text: 'total' }));
-  }
-</script>
-
-<PDFViewer src="https://www.embedpdf.com/pdfs/welcome.pdf" {onready} style="height: 100vh" />
