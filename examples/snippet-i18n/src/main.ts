@@ -1,9 +1,8 @@
 import {
-  buildFontFallbackConfig,
-  charsetUrlsFromBase,
   composeLayout,
   FORK_ICONS,
   init,
+  nativeFallbackFonts,
   saveAnnotationsCommand,
   selectionActions,
   snapshotActions,
@@ -71,8 +70,8 @@ const viewer = init({
   ],  identity: { displayName: '匿名用户' },
   theme: { accent: '#2D8A65' },
   icons: { ...FORK_ICONS },
-  // 自托管 CJK 回退字体：相对路径，dev 与子目录部署（GitHub Pages /embed-pdf-viewer/）都成立。
-  engine: { fallbackFonts: buildFontFallbackConfig(charsetUrlsFromBase(base)) },
+  // 3.x 原生字体方案：ar/he 走引擎内置 defaultFallbackFonts，CJK+Latin 一个 Droid 文件。
+  engine: { fallbackFonts: nativeFallbackFonts(`${base}/DroidSansFallbackFull.ttf`) },
   commands: [...sel.commands, ...snap.commands, save, back],
   layout: composeLayout(sel.layout, snap.layout, (l) =>
     l

@@ -155,3 +155,22 @@ export function charsetUrlsFromBase(baseUrl: string): CharsetFontUrls {
   const base = baseUrl.replace(/\/$/, '');
   return Object.fromEntries(FONT_CHARSETS.map((charset) => [charset, `${base}/fonts/${charset}`]));
 }
+
+/**
+ * The 3.x-native font surface, what the official examples ship:
+ * `default-fallback-fonts` (Hebrew/Arabic) rides inside the app bundle by
+ * default (`engine.defaultFallbackFonts: true`, the default), and one
+ * Droid Sans Fallback file covers CJK and Latin. No charset folders to
+ * deploy; pass where you serve the file.
+ */
+export function nativeFallbackFonts(
+  droidUrl: string,
+): FallbackFontSpec[] {
+  return [
+    {
+      key: 'droid-sans-fallback-full',
+      familyName: 'Droid Sans Fallback',
+      url: droidUrl,
+    },
+  ];
+}

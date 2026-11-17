@@ -18,29 +18,32 @@ EmbedPDF 3.x 查看器的中文定制发行层，供 `pdfviewer.console` / `xxzx
   `snapshotActions`（v2 `captureExtActions` 的截图扩展按钮）、
   `saveAnnotationsCommand`（批注另存为 buffer，v2 `saveAsCopyAndGetBufferAndName`）、
   `composeLayout`；
-- **`buildFontFallbackConfig`**：v2 `buildCdnFontConfig` 的 3.x 形态，仍按
-  `<base>/fonts/<charset>/<file>` 加载自托管的思源/Noto 字体（文件集与 v2 部署一致）。
+- **字体（3.x 原生方案）**：arabic/hebrew 由引擎内置 `defaultFallbackFonts`（默认开）随应用
+  懒加载；CJK+Latin 一个 `DroidSansFallbackFull.ttf` 放宿主根目录，
+  `fallbackFonts: nativeFallbackFonts(url)`（官方示例同款资产）；
+- **`buildFontFallbackConfig`（兼容层）**：v2 `buildCdnFontConfig` 的 3.x 形态，按
+  `<base>/fonts/<charset>/<file>` 加载旧部署的思源/Noto 文件集，供沿用 v2 静态站的环境。
 
 ## 用法
 
 ```ts
-import { init, selectionActions, snapshotActions, saveAnnotationsCommand, composeLayout } from 'embedpdf-snippet-i18n';
+import { init, selectionActions, snapshotActions, saveAnnotationsCommand, composeLayout, nativeFallbackFonts, FORK_ICONS } from 'embedpdf-snippet-i18n';
 
 const sel = selectionActions([
   { id: 'review:ai', label: 'AI解读', icon: 'custom_ai', onText: (text) => askAI(text) },
 ]);
 const snap = snapshotActions([
-  { id: 'review:capture-ai', label: 'AI解读', onSnapshot: (image) => askVision(image.blob) },
+  { id: 'review:capture-ai', label: 'AI解读', onSnapshot: (data) => askVision(data.blob) },
 ]);
 const save = saveAnnotationsCommand((buffer, name) => upload(buffer, name));
 
 const handle = init({
   target: container,
   documents: [{ src: pdfUrl, name: '文献.pdf' }],
-  engine: { wasmUrl: `${viewerBaseUrl}/embedpdf.wasm`, fallbackFonts: [] /* 或 buildFontFallbackConfig(...) */ },
+  engine: { wasmUrl: `${viewerBaseUrl}/embedpdf.wasm`, fallbackFonts: nativeFallbackFonts(`${viewerBaseUrl}/DroidSansFallbackFull.ttf`) },
   identity: { displayName: '匿名用户' },
   theme: { accent: '#2D8A65' },
-  icons: { custom_ai: { viewBox: '0 0 1024 1024', paths: [{ d: '…' }] } },
+  icons: { ...FORK_ICONS },
   commands: [...sel.commands, ...snap.commands, save],
   layout: composeLayout(sel.layout, snap.layout, (base) => base.tabs('never')),
   onFileSelected: (file) => noteLocalOpen(file),
@@ -61,7 +64,7 @@ handle.destroy();    // 卸载
 | `documentManager.maxDocuments` | `maxDocuments` |
 | `annotations.annotationAuthor` | `identity: { displayName }` |
 | `i18n.defaultLocale` | `locale`（默认 `'zh-CN'`） |
-| `fontFallback.fonts`（`buildCdnFontConfig`） | `engine.fallbackFonts`（`buildFontFallbackConfig(charsetUrls)`） |
+| `fontFallback.fonts`（`buildCdnFontConfig`） | `engine.fallbackFonts`（原生：`nativeFallbackFonts(url)`；兼容旧部署：`buildFontFallbackConfig(charsetUrls)`） |
 | `tabBar: 'never'` | `layout: (base) => base.tabs('never')` |
 | `theme.light.accent.primary` | `theme: { accent }`（3.x 单一主色） |
 | `captureExtActions` | `snapshotActions([...])` |
@@ -75,8 +78,10 @@ handle.destroy();    // 卸载
 
 - `embedpdf.wasm`：取自 `@embedpdf/viewer/dist/embedpdf.js` 同目录产物
   （构建本仓库后在 `packages/viewer/main/dist/embedpdf.wasm`），替换旧的 `pdfium.wasm`；
-- `fonts/<charset>/<file>`：与 v2 完全一致，无需变更（清单见 `src/fonts.ts`）；
-- 示例 PDF、favicon、Matomo 嵌入等属于宿主页面自身，不再由本包发布。
+- `DroidSansFallbackFull.ttf`：取自 `examples/snippet-react/public/`（官方 3.x 示例资产），
+  部署到宿主根目录；旧的 `fonts/<charset>/` Noto 目录在原生方案下不再被引用（保留无害）；
+- arabic/hebrew 无需部署：引擎 `defaultFallbackFonts` 默认开启，随应用 bundle 加载；
+- 示例 PDF、favicon（`website/public/favicon.ico`）、Matomo 嵌入等属于宿主页面自身，不再由本包发布。
 
 ## 开发
 
