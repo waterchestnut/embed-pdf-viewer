@@ -87,4 +87,36 @@ handle.destroy();    // 卸载
 
 本包在 fork 分支 `feature/v3-snippet` 上维护，位于 `packages/snippet-i18n`，
 随 workspace 一起构建（`pnpm --filter embedpdf-snippet-i18n build`）。
-发布版本号 = 上游 viewer 版本 + `-N` 后缀（如 `3.3.0-1`）。
+发布版本号 = 上游 viewer 版本 + `-N` 后缀（如 `3.3.0-5`）。
+
+## 发布清单
+
+1. **同步上游**：`main` 快进到 `original-viewer/main`（wasm payload 哈希若变化，按
+   `packages/engine/runtime` 的 `fetch-payload.sh` 重新拉取，需 `core.autocrlf=input` 保持 LF），
+   然后 `feature/v3-snippet rebase main`。
+2. **升版本**：`package.json` 的 `version` 改为 `上游号-N`，提交。
+3. **构建**：`pnpm --filter embedpdf-snippet-i18n build`（含 publint/attw 审计）。
+4. **发布**——必须用 **pnpm**，且在设置 `NPM_TOKEN` 后执行：
+   ```powershell
+   $env:NPM_TOKEN = '<npm token>'   # 仓库 .npmrc 的 _authToken=${NPM_TOKEN} 需要它；
+                                    # 不设时 pnpm 会用空 token 覆盖用户级配置，registry 伪装成 404
+   pnpm --filter embedpdf-snippet-i18n publish --no-git-checks
+   ```
+   不要用 `npm publish`：它**不重写 publishConfig 与 `workspace:*`**，发出去的 manifest
+   `exports` 指向未发布的 `src/`、依赖带着 `workspace:*` 协议，消费者直接损坏（3.3.0-1/-2/-3 的教训）。
+   发布后 npm 有几分钟 "processing" 窗口，期间对该包的写入会返回 404，属正常。
+5. **npmmirror 同步**（CI/国内安装走镜像，新包与升级版本首次都要触发；幂等。以下命令在仓库根执行）：
+   ```powershell
+   # 根包
+   curl.exe -X PUT "https://registry.npmmirror.com/-/package/embedpdf-snippet-i18n/syncs"
+   # @embedpdf 全闭包（上游发新版后同样需要，逐个触发同步任务）
+   Get-ChildItem .\packages -Recurse -Filter package.json -File |
+     Where-Object { $_.FullName -notmatch 'node_modules|dist|runtime-src' } |
+     ForEach-Object { (Get-Content $_.FullName -Raw | ConvertFrom-Json).name } |
+     Sort-Object -Unique | Where-Object { $_ -like '@embedpdf/*' } |
+     ForEach-Object { curl.exe -s -X PUT "https://registry.npmmirror.com/-/package/$($_ -replace '/','%2f')/syncs" | Out-Null; Write-Output "synced: $_" }
+   # 验证：302/200 = 就绪（302 是跳 CDN，不是失败）；404 = 仍在队列，稍后再查
+   curl.exe -s -o NUL -w "%{http_code}" https://registry.npmmirror.com/embedpdf-snippet-i18n/-/embedpdf-snippet-i18n-<版本>.tgz
+   ```
+6. **消费方**：三个调用方升到 `^<新版本>`（`pnpm install` + tsc + 部署）；Pages 站点
+   需要重建时，`examples/snippet-i18n` 构建后铺进 `3.x` 分支 `docs/` 并 force push。
