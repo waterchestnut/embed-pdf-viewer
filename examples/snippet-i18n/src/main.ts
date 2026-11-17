@@ -3,6 +3,7 @@ import {
   charsetUrlsFromBase,
   composeLayout,
   init,
+  legacyIcon,
   saveAnnotationsCommand,
   selectionActions,
   snapshotActions,
@@ -14,7 +15,7 @@ const log = (text: string): void => {
   if (el) el.textContent = `${text}\n${el.textContent ?? ''}`.slice(0, 1000);
 };
 
-const AI_ICON: IconDef = {
+const AI_ICON: IconDef = legacyIcon({
   viewBox: '0 0 1024 1024',
   paths: [
     {
@@ -22,18 +23,18 @@ const AI_ICON: IconDef = {
       fill: 'currentColor',
     },
   ],
-};
-const TRANS_ICON: IconDef = {
+});
+const TRANS_ICON: IconDef = legacyIcon({
   viewBox: '0 0 1024 1024',
   paths: [
     { d: 'M128 192h352v64H296v64h160v64H296v72h-64V192zM896 832 768 576H704l128 256H704v64h192Z', fill: 'currentColor' },
     { d: 'M544 832 416 576h-96l-32-64h64l192 384h-64zM96 576l128-320h64L160 576h-64z', fill: 'currentColor' },
   ],
-};
-const BACK_ICON: IconDef = {
+});
+const BACK_ICON: IconDef = legacyIcon({
   viewBox: '0 0 1024 1024',
   paths: [{ d: 'M320 512 704 128l-64-64-448 448 448 448 64-64Z', fill: 'currentColor' }],
-};
+});
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -80,7 +81,10 @@ const back = {
 
 const viewer = init({
   target: '#viewer',
-  documents: [{ src: `${base}/ebook.pdf`, name: '测试的文件.pdf', active: true }],  identity: { displayName: '匿名用户' },
+  documents: [
+    { src: `${base}/ebook.pdf`, name: '测试的文件.pdf', active: true },
+    { src: `${base}/form.pdf`, name: '表单示例.pdf' },
+  ],  identity: { displayName: '匿名用户' },
   theme: { accent: '#2D8A65' },
   icons: { custom_ai: AI_ICON, custom_trans: TRANS_ICON, custom_back: BACK_ICON },
   // 自托管 CJK 回退字体：与 v2 部署同构的 /fonts/<charset> 目录。

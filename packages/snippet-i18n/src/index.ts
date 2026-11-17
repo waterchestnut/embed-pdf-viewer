@@ -116,8 +116,10 @@ export function init(config: SnippetConfig): SnippetHandle {
     // known URL; `'inline'` starts the worker from the bundled bytes, and the
     // page's own `wasmUrl` (like v2's) locates the wasm.
     engine: { worker: 'inline', ...engine },
-    // v2 shipped the capture dialog; 3.x gates it behind the snapshots feature.
-    features: { snapshots: true, ...features },
+    // v2 shipped the capture dialog and every mode tab; 3.x gates
+    // `snapshots`, `measurement` and `redaction` off by default, so the fork
+    // turns the full v2 surface back on (a user's `features` still wins).
+    features: { snapshots: true, measurement: true, redaction: true, ...features },
     strings: mergeStrings(FORK_STRINGS, strings),
     commands: [
       ...(onFileSelected ? [fileOpenEventCommand(onFileSelected)] : []),
