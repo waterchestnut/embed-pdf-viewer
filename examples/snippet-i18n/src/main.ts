@@ -65,8 +65,8 @@ const viewer = init({
   ],  identity: { displayName: '匿名用户' },
   theme: { accent: '#2D8A65' },
   icons: { ...FORK_ICONS },
-  // 自托管 CJK 回退字体：与 v2 部署同构的 /fonts/<charset> 目录。
-  engine: { fallbackFonts: buildFontFallbackConfig(charsetUrlsFromBase(`${location.origin}${base}`)) },
+  // 自托管 CJK 回退字体：相对路径，dev 与子目录部署（GitHub Pages /embed-pdf-viewer/）都成立。
+  engine: { fallbackFonts: buildFontFallbackConfig(charsetUrlsFromBase(base)) },
   commands: [...sel.commands, ...snap.commands, save, back],
   layout: composeLayout(sel.layout, snap.layout, (l) =>
     l
